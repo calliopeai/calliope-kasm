@@ -1,0 +1,17 @@
+# Build artifacts
+*.deb
+*.tar.gz
+*.AppImage
+
+# Docker
+.docker/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

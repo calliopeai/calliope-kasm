@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Calliope AI IDE
+Comment=AI-Enhanced Development Environment
+Exec=calliope-ide --no-sandbox %F
+Icon=calliope-ide
+Terminal=false
+Categories=Development;IDE;
+StartupWMClass=calliope-ide
+MimeType=text/plain;
