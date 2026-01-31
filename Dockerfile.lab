@@ -1,0 +1,82 @@
+ARG BASE_TAG="1.17.0"
+ARG BASE_IMAGE="core-debian-bookworm"
+FROM kasmweb/${BASE_IMAGE}:${BASE_TAG}
+
+USER root
+
+ENV HOME=/home/kasm-default-profile
+ENV STARTUPDIR=/dockerstartup
+ENV INST_SCRIPTS=$STARTUPDIR/install
+WORKDIR $HOME
+
+######### Customize Container Here ###########
+
+# Version can be overridden at build time
+ARG CALLIOPE_VERSION="1.2.5"
+ENV CALLIOPE_VERSION=${CALLIOPE_VERSION}
+
+# Install dependencies for Electron apps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcups2 \
+    libdbus-1-3 \
+    libdrm2 \
+    libgbm1 \
+    libgtk-3-0 \
+    libnspr4 \
+    libnss3 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxfixes3 \
+    libxkbcommon0 \
+    libxrandr2 \
+    xdg-utils \
+    wget \
+    ca-certificates \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Calliope Lab
+RUN ARCH=$(dpkg --print-architecture) && \
+    case "${ARCH}" in \
+        amd64) RELEASE_ARCH="x64" ;; \
+        arm64) RELEASE_ARCH="arm64" ;; \
+        *) echo "Unsupported arch: ${ARCH}" && exit 1 ;; \
+    esac && \
+    wget -q "https://github.com/calliopeai/calliope-ai-desktop-releases/releases/download/lab-v${CALLIOPE_VERSION}/calliope-lab-linux-${RELEASE_ARCH}.deb" -O /tmp/calliope-lab.deb && \
+    apt-get update && \
+    apt-get install -y /tmp/calliope-lab.deb && \
+    rm /tmp/calliope-lab.deb && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Setup desktop shortcut
+RUN DESKTOP_FILE=$(find /usr/share/applications -name "*calliope*" -type f | head -1) && \
+    if [ -n "$DESKTOP_FILE" ]; then \
+        cp "$DESKTOP_FILE" $HOME/Desktop/ && \
+        chmod +x $HOME/Desktop/*.desktop && \
+        chown 1000:1000 $HOME/Desktop/*.desktop && \
+        sed -i 's|Exec=\([^ ]*\)|Exec=\1 --no-sandbox|g' "$DESKTOP_FILE" && \
+        sed -i 's|Exec=\([^ ]*\)|Exec=\1 --no-sandbox|g' $HOME/Desktop/*.desktop; \
+    fi
+
+# Custom startup script
+RUN echo '#!/bin/bash\n\
+set -e\n\
+/usr/bin/desktop_ready\n\
+calliope-lab --no-sandbox &\n\
+' > $STARTUPDIR/custom_startup.sh && chmod 755 $STARTUPDIR/custom_startup.sh
+
+######### End Customizations ###########
+
+RUN chown 1000:0 $HOME
+RUN $STARTUPDIR/set_user_permission.sh $HOME
+
+ENV HOME=/home/kasm-user
+WORKDIR $HOME
+RUN mkdir -p $HOME && chown -R 1000:0 $HOME
+
+USER 1000

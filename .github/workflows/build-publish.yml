@@ -3,11 +3,22 @@ name: Build and Publish Kasm Image
 on:
   push:
     tags:
-      - 'v*'
+      - 'ide-v*'
+      - 'lab-v*'
+  repository_dispatch:
+    types: [ide-release, lab-release]
   workflow_dispatch:
     inputs:
-      calliope_version:
-        description: 'Calliope IDE version (e.g., 1.2.9)'
+      product:
+        description: 'Product to build'
+        required: true
+        type: choice
+        options:
+          - ide
+          - lab
+        default: 'ide'
+      version:
+        description: 'Version (e.g., 1.2.9)'
         required: true
         default: '1.2.9'
       push:
@@ -18,118 +29,77 @@ on:
 env:
   REGISTRY_DOCKERHUB: docker.io
   REGISTRY_GHCR: ghcr.io
-  IMAGE_NAME_DOCKERHUB: calliopeai/calliope-ide-4kasm
-  IMAGE_NAME_GHCR: ${{ github.repository_owner }}/calliope-ide-4kasm
   KASM_VERSION: '1.17.0'
 
 jobs:
   build:
-    name: Build and Push
+    name: Build ${{ matrix.product }} (${{ matrix.platform }})
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Extract version from tag or input
-        id: version
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            VERSION="${{ inputs.calliope_version }}"
-          else
-            # Extract version from tag (v1.2.9 -> 1.2.9)
-            VERSION="${GITHUB_REF_NAME#v}"
-          fi
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Building Calliope IDE version: $VERSION"
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY_DOCKERHUB }}
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY_GHCR }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: |
-            ${{ env.REGISTRY_DOCKERHUB }}/${{ env.IMAGE_NAME_DOCKERHUB }}
-            ${{ env.REGISTRY_GHCR }}/${{ env.IMAGE_NAME_GHCR }}
-          tags: |
-            type=raw,value=${{ steps.version.outputs.version }}
-            type=raw,value=latest,enable=${{ github.ref_type == 'tag' }}
-
-      - name: Build and push multi-arch
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          platforms: linux/amd64,linux/arm64
-          push: ${{ github.event_name == 'push' || inputs.push }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            BASE_TAG=${{ env.KASM_VERSION }}
-            CALLIOPE_VERSION=${{ steps.version.outputs.version }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Update Docker Hub description
-        uses: peter-evans/dockerhub-description@v4
-        if: github.event_name == 'push' && github.ref_type == 'tag'
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: ${{ env.IMAGE_NAME_DOCKERHUB }}
-          readme-filepath: ./DOCKERHUB.md
-
-  build-individual:
-    name: Build ${{ matrix.platform }}
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref_type == 'tag'
     strategy:
+      fail-fast: false
       matrix:
+        platform: [linux/amd64, linux/arm64]
         include:
           - platform: linux/amd64
             suffix: amd64
           - platform: linux/arm64
             suffix: arm64
-    permissions:
-      contents: read
-      packages: write
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Determine product and version
+        id: config
+        run: |
+          # From repository_dispatch
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            if [ "${{ github.event.action }}" = "ide-release" ]; then
+              PRODUCT="ide"
+              VERSION="${{ github.event.client_payload.version }}"
+            elif [ "${{ github.event.action }}" = "lab-release" ]; then
+              PRODUCT="lab"
+              VERSION="${{ github.event.client_payload.version }}"
+            fi
+          # From tag push
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            TAG="${GITHUB_REF_NAME}"
+            if [[ "$TAG" == ide-v* ]]; then
+              PRODUCT="ide"
+              VERSION="${TAG#ide-v}"
+            elif [[ "$TAG" == lab-v* ]]; then
+              PRODUCT="lab"
+              VERSION="${TAG#lab-v}"
+            fi
+          # From workflow_dispatch
+          else
+            PRODUCT="${{ inputs.product }}"
+            VERSION="${{ inputs.version }}"
+          fi
+
+          # Set image names based on product
+          if [ "$PRODUCT" = "ide" ]; then
+            IMAGE_DOCKERHUB="calliopeai/calliope-ide-4kasm"
+            IMAGE_GHCR="calliopeai/calliope-ide-4kasm"
+          else
+            IMAGE_DOCKERHUB="calliopeai/calliope-lab-4kasm"
+            IMAGE_GHCR="calliopeai/calliope-lab-4kasm"
+          fi
+
+          echo "product=$PRODUCT" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "image_dockerhub=$IMAGE_DOCKERHUB" >> $GITHUB_OUTPUT
+          echo "image_ghcr=$IMAGE_GHCR" >> $GITHUB_OUTPUT
+          echo "Building $PRODUCT v$VERSION"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Extract version from tag
-        id: version
-        run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -149,13 +119,118 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          file: ./Dockerfile.${{ steps.config.outputs.product }}
           platforms: ${{ matrix.platform }}
-          push: true
+          push: ${{ github.event_name != 'workflow_dispatch' || inputs.push }}
           tags: |
-            ${{ env.REGISTRY_DOCKERHUB }}/${{ env.IMAGE_NAME_DOCKERHUB }}:${{ steps.version.outputs.version }}-${{ matrix.suffix }}
-            ${{ env.REGISTRY_GHCR }}/${{ env.IMAGE_NAME_GHCR }}:${{ steps.version.outputs.version }}-${{ matrix.suffix }}
+            ${{ env.REGISTRY_DOCKERHUB }}/${{ steps.config.outputs.image_dockerhub }}:${{ steps.config.outputs.version }}-${{ matrix.suffix }}
+            ${{ env.REGISTRY_GHCR }}/${{ steps.config.outputs.image_ghcr }}:${{ steps.config.outputs.version }}-${{ matrix.suffix }}
           build-args: |
             BASE_TAG=${{ env.KASM_VERSION }}
-            CALLIOPE_VERSION=${{ steps.version.outputs.version }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+            CALLIOPE_VERSION=${{ steps.config.outputs.version }}
+          cache-from: type=gha,scope=${{ steps.config.outputs.product }}-${{ matrix.suffix }}
+          cache-to: type=gha,mode=max,scope=${{ steps.config.outputs.product }}-${{ matrix.suffix }}
+
+  create-manifest:
+    name: Create multi-arch manifest
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Determine product and version
+        id: config
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            if [ "${{ github.event.action }}" = "ide-release" ]; then
+              PRODUCT="ide"
+              VERSION="${{ github.event.client_payload.version }}"
+            else
+              PRODUCT="lab"
+              VERSION="${{ github.event.client_payload.version }}"
+            fi
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            TAG="${GITHUB_REF_NAME}"
+            if [[ "$TAG" == ide-v* ]]; then
+              PRODUCT="ide"
+              VERSION="${TAG#ide-v}"
+            else
+              PRODUCT="lab"
+              VERSION="${TAG#lab-v}"
+            fi
+          else
+            PRODUCT="${{ inputs.product }}"
+            VERSION="${{ inputs.version }}"
+          fi
+
+          if [ "$PRODUCT" = "ide" ]; then
+            IMAGE_DOCKERHUB="calliopeai/calliope-ide-4kasm"
+            IMAGE_GHCR="calliopeai/calliope-ide-4kasm"
+          else
+            IMAGE_DOCKERHUB="calliopeai/calliope-lab-4kasm"
+            IMAGE_GHCR="calliopeai/calliope-lab-4kasm"
+          fi
+
+          echo "product=$PRODUCT" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "image_dockerhub=$IMAGE_DOCKERHUB" >> $GITHUB_OUTPUT
+          echo "image_ghcr=$IMAGE_GHCR" >> $GITHUB_OUTPUT
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY_DOCKERHUB }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY_GHCR }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create and push Docker Hub manifest
+        run: |
+          IMAGE="${{ env.REGISTRY_DOCKERHUB }}/${{ steps.config.outputs.image_dockerhub }}"
+          VERSION="${{ steps.config.outputs.version }}"
+
+          # Create versioned manifest
+          docker manifest create ${IMAGE}:${VERSION} \
+            ${IMAGE}:${VERSION}-amd64 \
+            ${IMAGE}:${VERSION}-arm64
+          docker manifest push ${IMAGE}:${VERSION}
+
+          # Create latest manifest
+          docker manifest create ${IMAGE}:latest \
+            ${IMAGE}:${VERSION}-amd64 \
+            ${IMAGE}:${VERSION}-arm64
+          docker manifest push ${IMAGE}:latest
+
+      - name: Create and push GHCR manifest
+        run: |
+          IMAGE="${{ env.REGISTRY_GHCR }}/${{ steps.config.outputs.image_ghcr }}"
+          VERSION="${{ steps.config.outputs.version }}"
+
+          docker manifest create ${IMAGE}:${VERSION} \
+            ${IMAGE}:${VERSION}-amd64 \
+            ${IMAGE}:${VERSION}-arm64
+          docker manifest push ${IMAGE}:${VERSION}
+
+          docker manifest create ${IMAGE}:latest \
+            ${IMAGE}:${VERSION}-amd64 \
+            ${IMAGE}:${VERSION}-arm64
+          docker manifest push ${IMAGE}:latest
+
+      - name: Update Docker Hub description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ steps.config.outputs.image_dockerhub }}
+          readme-filepath: ./DOCKERHUB.md
