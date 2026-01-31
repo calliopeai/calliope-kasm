@@ -1,43 +1,45 @@
-# Calliope AI IDE for Kasm Workspaces
+# Calliope AI Lab for Kasm Workspaces
 
-Browser-accessible AI-enhanced development environment powered by [Kasm Workspaces](https://kasmweb.com).
+Browser-accessible AI-powered data analysis environment powered by [Kasm Workspaces](https://kasmweb.com).
 
 ## Quick Start
 
 ```bash
-docker pull calliopeai/calliope-ide-4kasm:1.2.9-arm64
+docker pull calliopeai/calliope-lab-4kasm:latest
 ```
 
 ### Run Standalone (Testing)
 
 ```bash
-docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password calliopeai/calliope-ide-4kasm:1.2.9-arm64
+docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password calliopeai/calliope-lab-4kasm:latest
 ```
 
 Access at `https://localhost:6901` (user: `kasm_user`, password: `password`)
 
 ### Deploy to Kasm Workspaces
 
-1. Kasm Admin UI → Workspaces → Add Workspace
-2. Docker Image: `calliopeai/calliope-ide-4kasm:1.2.9-arm64`
+1. Kasm Admin UI -> Workspaces -> Add Workspace
+2. Docker Image: `calliopeai/calliope-lab-4kasm:latest`
 3. Recommended settings:
    - Cores: 2+
    - Memory: 4096 MB+
-   - Persistent Profile: Optional
+   - Persistent Profile: Recommended (for notebooks)
 
 ## Tags
 
 | Tag | Architecture | Description |
 |-----|--------------|-------------|
-| `1.2.9-arm64` | linux/arm64 | ARM64 (Apple Silicon, Graviton, etc.) |
-| `1.2.9-amd64` | linux/amd64 | x86_64 (Intel/AMD) - Coming soon |
 | `latest` | multi-arch | Latest stable release |
+| `X.Y.Z` | multi-arch | Specific version |
+| `X.Y.Z-arm64` | linux/arm64 | ARM64 (Apple Silicon, Graviton, etc.) |
+| `X.Y.Z-amd64` | linux/amd64 | x86_64 (Intel/AMD) |
 
 ## What's Included
 
-- **Calliope AI IDE** v1.2.9 - Full-featured AI-enhanced code editor
+- **Calliope AI Lab** - Interactive notebook environment with AI assistance
 - **Kasm Desktop** - XFCE4 with KasmVNC
 - **Multi-LLM Support** - OpenAI, Anthropic Claude, Google Gemini, Ollama
+- **Data Science Stack** - JupyterLab-compatible notebook interface
 - **BYOK** - Bring your own API keys, no account required
 
 ## Base Image
@@ -65,7 +67,7 @@ Built on `kasmweb/core-debian-bookworm:1.17.0` providing:
 
 ## License
 
-Calliope AI IDE is free to use. See [calliope.ai](https://calliope.ai) for terms.
+Calliope AI Lab is free to use. See [calliope.ai](https://calliope.ai) for terms.
 
 ---
 

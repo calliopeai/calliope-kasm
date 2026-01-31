@@ -233,4 +233,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: ${{ steps.config.outputs.image_dockerhub }}
-          readme-filepath: ./DOCKERHUB.md
+          readme-filepath: ./DOCKERHUB-${{ steps.config.outputs.product }}.md
