@@ -14,7 +14,7 @@ elif [ -x /usr/bin/calliope-ide ]; then
 elif [ -x /opt/Calliope\ AI\ IDE/calliope-ide ]; then
     START_COMMAND="/opt/Calliope AI IDE/calliope-ide"
 else
-    echo "WARNING: Calliope IDE binary not found"
+    echo "WARNING: Calliope AI IDE binary not found"
     exit 0
 fi
 
@@ -23,7 +23,7 @@ kasm_startup() {
     # Wait for desktop to be ready
     /usr/bin/desktop_ready
 
-    # Launch Calliope IDE
+    # Launch Calliope AI IDE
     $START_COMMAND $ARGS &
 }
 

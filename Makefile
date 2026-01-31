@@ -1,4 +1,4 @@
-# Calliope Kasm Image Build
+# Calliope AI Kasm Image Build
 
 IMAGE_NAME := calliope-ide
 REGISTRY := ghcr.io/calliopeai
@@ -13,7 +13,7 @@ TAG_DEV := $(IMAGE_NAME):dev
 .PHONY: help build build-arm64 build-amd64 build-multi test push clean
 
 help:
-	@echo "Calliope Kasm Image Build"
+	@echo "Calliope AI Kasm Image Build"
 	@echo ""
 	@echo "Usage:"
 	@echo "  make build        - Build for current platform"
@@ -61,7 +61,7 @@ build-multi:
 
 # Test the image locally
 test: build
-	@echo "Starting Calliope IDE in Kasm..."
+	@echo "Starting Calliope AI IDE in Kasm..."
 	@echo "Access at: https://localhost:6901"
 	@echo "Username: kasm_user"
 	@echo "Password: password"
