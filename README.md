@@ -1,80 +1,135 @@
-# Calliope Kasm Image
+<p align="center">
+  <img src="assets/calliope-logo.svg" alt="Calliope AI" width="280">
+</p>
 
-Kasm Workspaces image for Calliope AI IDE - browser-accessible AI-enhanced development environment.
+<h1 align="center">Calliope AI for Kasm Workspaces</h1>
+
+<p align="center">
+  <strong>Browser-accessible AI development environments</strong>
+</p>
+
+<p align="center">
+  <a href="https://hub.docker.com/r/calliopeai/calliope-ide-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-ide-4kasm?label=IDE&logo=docker" alt="Docker IDE"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-lab-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-lab-4kasm?label=Lab&logo=docker" alt="Docker Lab"></a>
+  <a href="https://github.com/calliopeai/calliope-kasm/actions"><img src="https://img.shields.io/github/actions/workflow/status/calliopeai/calliope-kasm/build-publish.yml?label=build&logo=github" alt="Build Status"></a>
+</p>
+
+<p align="center">
+  <a href="https://calliope.ai">Website</a> •
+  <a href="https://docs.calliope.ai">Documentation</a> •
+  <a href="https://discord.gg/Z9bbbE6hJv">Discord</a>
+</p>
+
+---
+
+Docker images for running [Calliope AI](https://calliope.ai) desktop applications in [Kasm Workspaces](https://kasmweb.com) - stream a full AI-powered development environment to any browser.
+
+## Products
+
+| Image | Description |
+|-------|-------------|
+| **calliope-ide-4kasm** | AI-enhanced code editor built on VS Code |
+| **calliope-lab-4kasm** | Interactive notebook environment for data analysis |
 
 ## Quick Start
 
-```bash
-# Build for local testing
-make build
+### Calliope AI IDE
 
-# Test locally (access at https://localhost:6901)
-make test
+```bash
+# Pull the image
+docker pull calliopeai/calliope-ide-4kasm:latest
+
+# Run standalone (for testing)
+docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password \
+  calliopeai/calliope-ide-4kasm:latest
 ```
+
+### Calliope AI Lab
+
+```bash
+# Pull the image
+docker pull calliopeai/calliope-lab-4kasm:latest
+
+# Run standalone (for testing)
+docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password \
+  calliopeai/calliope-lab-4kasm:latest
+```
+
+**Access:** https://localhost:6901
+**Username:** `kasm_user`
+**Password:** `password`
+
+## Deploy to Kasm Workspaces
+
+1. **Kasm Admin UI** → Workspaces → Add Workspace
+2. **Docker Image:** `calliopeai/calliope-ide-4kasm:latest` (or `calliope-lab-4kasm`)
+3. **Recommended Settings:**
+   - Cores: 2+
+   - Memory: 4096 MB+
+   - Persistent Profile: Optional (recommended for Lab)
 
 ## Architecture Support
 
-| Architecture | Status |
-|-------------|--------|
-| linux/amd64 | Supported |
-| linux/arm64 | Supported |
+| Architecture | Platform | Status |
+|--------------|----------|--------|
+| `linux/amd64` | Intel/AMD x86_64 | Supported |
+| `linux/arm64` | Apple Silicon, AWS Graviton, Raspberry Pi | Supported |
 
-## Building
+Images are published as multi-arch manifests - Docker automatically pulls the correct architecture.
 
-### Local Development
+## Tags
 
-```bash
-# Build for your current platform
-make build
-
-# Run locally for testing
-make test
-# Access: https://localhost:6901
-# User: kasm_user
-# Pass: password
-```
-
-### Multi-Architecture Build
-
-```bash
-# Requires docker buildx and registry login
-docker login ghcr.io
-
-# Build and push multi-arch image
-make build-multi
-```
+| Tag | Description |
+|-----|-------------|
+| `latest` | Latest stable release (multi-arch) |
+| `X.Y.Z` | Specific version (multi-arch) |
+| `X.Y.Z-amd64` | Specific version, x86_64 only |
+| `X.Y.Z-arm64` | Specific version, ARM64 only |
 
 ## Base Image
 
-Uses `kasmweb/core-debian-bookworm:1.17.0` (Debian 12) which provides:
+Built on [`kasmweb/core-debian-bookworm:1.17.0`](https://hub.docker.com/r/kasmweb/core-debian-bookworm) providing:
+
+- Debian 12 (Bookworm)
 - XFCE4 desktop environment
-- KasmVNC for remote access
+- KasmVNC for browser streaming
+- PulseAudio for audio
 - GPU support via VirtualGL
-- PulseAudio for sound
 
-## Files
+## Environment Variables
 
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `VNC_PW` | Access password | Required |
+| `VNC_RESOLUTION` | Screen resolution | `1920x1080` |
+
+## Development
+
+```bash
+# Build for local testing (IDE)
+make build PRODUCT=ide
+
+# Build for local testing (Lab)
+make build PRODUCT=lab
+
+# Test locally
+make test
 ```
-.
-├── Dockerfile              # Main image definition
-├── Makefile               # Build commands
-└── src/
-    ├── install_calliope.sh    # Installation script
-    ├── custom_startup.sh      # Session startup script
-    └── calliope-ide.desktop   # Desktop shortcut
-```
 
-## Deployment to Kasm
+See the [Makefile](Makefile) for all available commands.
 
-1. Build and push to your registry
-2. In Kasm Admin UI: Workspaces → Add Workspace
-3. Configure:
-   - Docker Image: `ghcr.io/calliopeai/calliope-ide:latest`
-   - Cores: 2+
-   - Memory: 4096+ MB
-   - GPU: Optional
+## CI/CD
 
-## Notes
+Images are automatically built and published when new releases are tagged in:
+- [calliope-vscode](https://github.com/calliopeai/vscode) → triggers IDE image build
+- [lab-desktop](https://github.com/calliopeai/lab-desktop) → triggers Lab image build
 
-- Electron apps require `--no-sandbox` flag in containers
-- Use `1.17.0-rolling-daily` base tag for auto-updates
+## License
+
+Calliope AI applications are free to use. See [calliope.ai](https://calliope.ai) for terms.
+
+---
+
+<p align="center">
+  <strong>Built by <a href="https://calliope.ai">Calliope Labs</a></strong>
+</p>
