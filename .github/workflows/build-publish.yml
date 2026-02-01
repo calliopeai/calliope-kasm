@@ -115,21 +115,28 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push to GHCR
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile.${{ steps.config.outputs.product }}
           platforms: ${{ matrix.platform }}
           push: ${{ github.event_name != 'workflow_dispatch' || inputs.push }}
-          tags: |
-            ${{ env.REGISTRY_DOCKERHUB }}/${{ steps.config.outputs.image_dockerhub }}:${{ steps.config.outputs.version }}-${{ matrix.suffix }}
-            ${{ env.REGISTRY_GHCR }}/${{ steps.config.outputs.image_ghcr }}:${{ steps.config.outputs.version }}-${{ matrix.suffix }}
+          tags: ${{ env.REGISTRY_GHCR }}/${{ steps.config.outputs.image_ghcr }}:${{ steps.config.outputs.version }}-${{ matrix.suffix }}
           build-args: |
             BASE_TAG=${{ env.KASM_VERSION }}
             CALLIOPE_VERSION=${{ steps.config.outputs.version }}
           cache-from: type=gha,scope=${{ steps.config.outputs.product }}-${{ matrix.suffix }}
           cache-to: type=gha,mode=max,scope=${{ steps.config.outputs.product }}-${{ matrix.suffix }}
+
+      - name: Push to Docker Hub
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.push }}
+        run: |
+          # Pull from GHCR and push to Docker Hub
+          docker pull ${{ env.REGISTRY_GHCR }}/${{ steps.config.outputs.image_ghcr }}:${{ steps.config.outputs.version }}-${{ matrix.suffix }}
+          docker tag ${{ env.REGISTRY_GHCR }}/${{ steps.config.outputs.image_ghcr }}:${{ steps.config.outputs.version }}-${{ matrix.suffix }} \
+            ${{ env.REGISTRY_DOCKERHUB }}/${{ steps.config.outputs.image_dockerhub }}:${{ steps.config.outputs.version }}-${{ matrix.suffix }}
+          docker push ${{ env.REGISTRY_DOCKERHUB }}/${{ steps.config.outputs.image_dockerhub }}:${{ steps.config.outputs.version }}-${{ matrix.suffix }}
 
   create-manifest:
     name: Create multi-arch manifest
