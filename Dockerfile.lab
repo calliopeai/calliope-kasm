@@ -59,8 +59,8 @@ RUN DESKTOP_FILE=$(find /usr/share/applications -name "*calliope*" -type f | hea
         cp "$DESKTOP_FILE" $HOME/Desktop/ && \
         chmod +x $HOME/Desktop/*.desktop && \
         chown 1000:1000 $HOME/Desktop/*.desktop && \
-        sed -i 's|Exec=\([^ ]*\)|Exec=\1 --no-sandbox|g' "$DESKTOP_FILE" && \
-        sed -i 's|Exec=\([^ ]*\)|Exec=\1 --no-sandbox|g' $HOME/Desktop/*.desktop; \
+        sed -i '/^Exec=/s/$/ --no-sandbox/' "$DESKTOP_FILE" && \
+        sed -i '/^Exec=/s/$/ --no-sandbox/' $HOME/Desktop/*.desktop; \
     fi
 
 # Custom startup script

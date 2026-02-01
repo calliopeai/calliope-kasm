@@ -52,8 +52,9 @@ if [ -n "${CALLIOPE_DESKTOP}" ]; then
     chown 1000:1000 $HOME/Desktop/*.desktop
 
     # Modify for container environment (Electron needs --no-sandbox)
-    sed -i 's|Exec=\([^ ]*\)|Exec=\1 --no-sandbox|g' "${CALLIOPE_DESKTOP}"
-    sed -i 's|Exec=\([^ ]*\)|Exec=\1 --no-sandbox|g' $HOME/Desktop/*.desktop
+    # Append --no-sandbox to Exec line (handles paths with spaces)
+    sed -i '/^Exec=/s/$/ --no-sandbox/' "${CALLIOPE_DESKTOP}"
+    sed -i '/^Exec=/s/$/ --no-sandbox/' $HOME/Desktop/*.desktop
 fi
 
 echo "Calliope AI IDE v${CALLIOPE_VERSION} installed successfully"
