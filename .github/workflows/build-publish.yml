@@ -130,6 +130,8 @@ jobs:
             CALLIOPE_VERSION=${{ steps.config.outputs.version }}
           cache-from: type=gha,scope=${{ steps.config.outputs.product }}-${{ matrix.suffix }}
           cache-to: type=gha,mode=max,scope=${{ steps.config.outputs.product }}-${{ matrix.suffix }}
+          provenance: false
+          sbom: false
 
   create-manifest:
     name: Create multi-arch manifest
