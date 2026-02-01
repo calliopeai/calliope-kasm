@@ -45,17 +45,27 @@ RUN chmod +x $INST_SCRIPTS/calliope/install_calliope.sh \
     && bash $INST_SCRIPTS/calliope/install_calliope.sh \
     && rm -rf $INST_SCRIPTS/calliope/
 
-# Copy desktop shortcut
-COPY src/calliope-ide.desktop $HOME/Desktop/
-RUN chmod +x $HOME/Desktop/calliope-ide.desktop \
-    && chown 1000:1000 $HOME/Desktop/calliope-ide.desktop
-
 # Copy custom startup script
 COPY src/custom_startup.sh $STARTUPDIR/custom_startup.sh
 RUN chmod 755 $STARTUPDIR/custom_startup.sh
 
-# Optional: Set custom background
-# COPY src/bg_calliope.png /usr/share/backgrounds/bg_default.png
+# Set custom desktop background
+COPY calliope-bg.svg /usr/share/backgrounds/calliope-bg.svg
+RUN mkdir -p /home/kasm-default-profile/.config/xfce4/xfconf/xfce-perchannel-xml && \
+    echo '<?xml version="1.0" encoding="UTF-8"?>\n\
+<channel name="xfce4-desktop" version="1.0">\n\
+  <property name="backdrop" type="empty">\n\
+    <property name="screen0" type="empty">\n\
+      <property name="monitorVNC-0" type="empty">\n\
+        <property name="workspace0" type="empty">\n\
+          <property name="image-style" type="int" value="5"/>\n\
+          <property name="last-image" type="string" value="/usr/share/backgrounds/calliope-bg.svg"/>\n\
+        </property>\n\
+      </property>\n\
+    </property>\n\
+  </property>\n\
+</channel>\n' > /home/kasm-default-profile/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml && \
+    chown -R 1000:1000 /home/kasm-default-profile/.config
 
 # Optional: Single-app mode - remove panel for cleaner look
 # RUN apt-get remove -y xfce4-panel
