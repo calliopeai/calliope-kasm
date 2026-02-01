@@ -40,6 +40,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Calliope Lab
+# Note: Validates .deb architecture matches target to catch misbuilt releases
 RUN ARCH=$(dpkg --print-architecture) && \
     case "${ARCH}" in \
         amd64) RELEASE_ARCH="x64" ;; \
@@ -47,6 +48,12 @@ RUN ARCH=$(dpkg --print-architecture) && \
         *) echo "Unsupported arch: ${ARCH}" && exit 1 ;; \
     esac && \
     wget -q "https://github.com/calliopeai/calliope-ai-desktop-releases/releases/download/lab-v${CALLIOPE_VERSION}/calliope-lab-linux-${RELEASE_ARCH}.deb" -O /tmp/calliope-lab.deb && \
+    DEB_ARCH=$(dpkg-deb --field /tmp/calliope-lab.deb Architecture) && \
+    if [ "$DEB_ARCH" != "$ARCH" ]; then \
+        echo "ERROR: Downloaded .deb is $DEB_ARCH but building for $ARCH"; \
+        echo "The Lab release has incorrectly built packages - rebuild needed"; \
+        exit 1; \
+    fi && \
     apt-get update && \
     apt-get install -y /tmp/calliope-lab.deb && \
     rm /tmp/calliope-lab.deb && \
