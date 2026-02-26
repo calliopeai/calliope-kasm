@@ -9,10 +9,10 @@
 </p>
 
 <p align="center">
-  <a href="https://hub.docker.com/r/calliopeai/calliope-ide-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-ide-4kasm?label=IDE&logo=docker" alt="Docker IDE"></a>
-  <a href="https://hub.docker.com/r/calliopeai/calliope-lab-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-lab-4kasm?label=Lab&logo=docker" alt="Docker Lab"></a>
-  <a href="https://hub.docker.com/r/calliopeai/calliope-chat-studio-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-chat-studio-kasm?label=Chat%20Studio&logo=docker" alt="Docker Chat Studio"></a>
-  <a href="https://hub.docker.com/r/calliopeai/calliope-loadr-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-loadr-kasm?label=Loadr&logo=docker" alt="Docker Loadr"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-ide-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-ide-4kasm?tag=latest&label=IDE&logo=docker" alt="Docker IDE"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-lab-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-lab-4kasm?tag=latest&label=Lab&logo=docker" alt="Docker Lab"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-chat-studio-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-chat-studio-kasm?tag=latest&label=Chat%20Studio&logo=docker" alt="Docker Chat Studio"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-loadr-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-loadr-kasm?tag=latest&label=Loadr&logo=docker" alt="Docker Loadr"></a>
   <a href="https://github.com/calliopeai/calliope-kasm/actions"><img src="https://img.shields.io/github/actions/workflow/status/calliopeai/calliope-kasm/build-publish.yml?label=build&logo=github" alt="Build Status"></a>
 </p>
 
