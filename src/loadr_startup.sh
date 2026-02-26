@@ -20,6 +20,11 @@ else
     exit 0
 fi
 
+# Set LD_LIBRARY_PATH for AppImage-extracted installs
+if [ -d /opt/loadr ]; then
+    export LD_LIBRARY_PATH="/opt/loadr/usr/lib:${LD_LIBRARY_PATH}"
+fi
+
 # Startup function
 kasm_startup() {
     # Wait for desktop to be ready

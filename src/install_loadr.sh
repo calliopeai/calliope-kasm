@@ -60,7 +60,7 @@ else
     unsquashfs -offset "${OFFSET}" -dest /tmp/squashfs-root /tmp/loadr.AppImage
     mv /tmp/squashfs-root /opt/loadr
     chmod -R a+rX /opt/loadr
-    ln -sf /opt/loadr/AppRun /usr/local/bin/loadr-desktop
+    ln -sf /opt/loadr/loadr-desktop /usr/local/bin/loadr-desktop
     rm /tmp/loadr.AppImage
 
     # Create desktop entry for AppImage install
