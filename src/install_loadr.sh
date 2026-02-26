@@ -59,7 +59,8 @@ else
     OFFSET=$(grep -aobP '\x68\x73\x71\x73' /tmp/loadr.AppImage | head -1 | cut -d: -f1)
     unsquashfs -offset "${OFFSET}" -dest /tmp/squashfs-root /tmp/loadr.AppImage
     mv /tmp/squashfs-root /opt/loadr
-    ln -sf /opt/loadr/loadr-desktop /usr/local/bin/loadr-desktop
+    chmod -R a+rX /opt/loadr
+    ln -sf /opt/loadr/AppRun /usr/local/bin/loadr-desktop
     rm /tmp/loadr.AppImage
 
     # Create desktop entry for AppImage install
