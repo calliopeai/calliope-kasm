@@ -120,6 +120,43 @@ Built on [`kasmweb/core-debian-bookworm:1.17.0`](https://hub.docker.com/r/kasmwe
 | `VNC_PW` | Access password | Required |
 | `VNC_RESOLUTION` | Screen resolution | `1920x1080` |
 
+## Connecting to Ollama
+
+Calliope AI apps support [Ollama](https://ollama.com) for local LLM inference. Since Kasm containers run in an isolated Docker network, you need to make Ollama accessible from inside the container.
+
+### Standalone Docker (testing)
+
+Use `--add-host` to map `host.docker.internal` to your host machine:
+
+```bash
+docker run --rm -it --shm-size=512m -p 6901:6901 \
+  -e VNC_PW=password \
+  --add-host=host.docker.internal:host-gateway \
+  calliopeai/calliope-chat-studio-kasm:latest
+```
+
+Then configure the Ollama URL inside the app as `http://host.docker.internal:11434`.
+
+### Kasm Workspaces deployment
+
+In the Kasm Admin UI, add a **Docker Run Config Override** to the workspace:
+
+```json
+{"hostname":"kasm","add_host":["host.docker.internal:host-gateway"]}
+```
+
+Alternatively, if Ollama runs on a separate server, use the server's IP/hostname directly (e.g. `http://ollama.internal:11434`).
+
+### Ollama network binding
+
+By default, Ollama only listens on `127.0.0.1`. To allow connections from Docker containers, set:
+
+```bash
+OLLAMA_HOST=0.0.0.0 ollama serve
+```
+
+Or in your Ollama systemd service file, add `Environment="OLLAMA_HOST=0.0.0.0"`.
+
 ## Development
 
 ```bash
