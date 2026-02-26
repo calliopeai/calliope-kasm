@@ -9,10 +9,14 @@
 </p>
 
 <p align="center">
-  <a href="https://hub.docker.com/r/calliopeai/calliope-ide-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-ide-4kasm?tag=latest&label=IDE&logo=docker" alt="Docker IDE"></a>
-  <a href="https://hub.docker.com/r/calliopeai/calliope-lab-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-lab-4kasm?tag=latest&label=Lab&logo=docker" alt="Docker Lab"></a>
-  <a href="https://hub.docker.com/r/calliopeai/calliope-chat-studio-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-chat-studio-kasm?tag=latest&label=Chat%20Studio&logo=docker" alt="Docker Chat Studio"></a>
-  <a href="https://hub.docker.com/r/calliopeai/calliope-loadr-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-loadr-kasm?tag=latest&label=Loadr&logo=docker" alt="Docker Loadr"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-ide-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-ide-4kasm?sort=semver&filter=*-amd64&label=IDE%20amd64&logo=docker" alt="IDE amd64"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-ide-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-ide-4kasm?sort=semver&filter=*-arm64&label=IDE%20arm64&logo=docker" alt="IDE arm64"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-lab-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-lab-4kasm?sort=semver&filter=*-amd64&label=Lab%20amd64&logo=docker" alt="Lab amd64"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-lab-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-lab-4kasm?sort=semver&filter=*-arm64&label=Lab%20arm64&logo=docker" alt="Lab arm64"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-chat-studio-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-chat-studio-kasm?sort=semver&filter=*-amd64&label=Chat%20Studio%20amd64&logo=docker" alt="Chat Studio amd64"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-chat-studio-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-chat-studio-kasm?sort=semver&filter=*-arm64&label=Chat%20Studio%20arm64&logo=docker" alt="Chat Studio arm64"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-loadr-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-loadr-kasm?sort=semver&filter=*-amd64&label=Loadr%20amd64&logo=docker" alt="Loadr amd64"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-loadr-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-loadr-kasm?sort=semver&filter=*-arm64&label=Loadr%20arm64&logo=docker" alt="Loadr arm64"></a>
   <a href="https://github.com/calliopeai/calliope-kasm/actions"><img src="https://img.shields.io/github/actions/workflow/status/calliopeai/calliope-kasm/build-publish.yml?label=build&logo=github" alt="Build Status"></a>
 </p>
 
