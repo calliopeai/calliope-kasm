@@ -11,6 +11,8 @@
 <p align="center">
   <a href="https://hub.docker.com/r/calliopeai/calliope-ide-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-ide-4kasm?label=IDE&logo=docker" alt="Docker IDE"></a>
   <a href="https://hub.docker.com/r/calliopeai/calliope-lab-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-lab-4kasm?label=Lab&logo=docker" alt="Docker Lab"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-chat-studio-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-chat-studio-kasm?label=Chat%20Studio&logo=docker" alt="Docker Chat Studio"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-loadr-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-loadr-kasm?label=Loadr&logo=docker" alt="Docker Loadr"></a>
   <a href="https://github.com/calliopeai/calliope-kasm/actions"><img src="https://img.shields.io/github/actions/workflow/status/calliopeai/calliope-kasm/build-publish.yml?label=build&logo=github" alt="Build Status"></a>
 </p>
 
@@ -30,6 +32,8 @@ Docker images for running [Calliope AI](https://calliope.ai) desktop application
 |-------|-------------|
 | **calliope-ide-4kasm** | AI-enhanced code editor built on VS Code |
 | **calliope-lab-4kasm** | Interactive notebook environment for data analysis |
+| **calliope-chat-studio-kasm** | AI-powered SQL agent for natural language database queries |
+| **calliope-loadr-kasm** | AI-powered data management studio with multi-database support |
 
 ## Quick Start
 
@@ -47,12 +51,25 @@ docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password \
 ### Calliope AI Lab
 
 ```bash
-# Pull the image
 docker pull calliopeai/calliope-lab-4kasm:latest
-
-# Run standalone (for testing)
 docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password \
   calliopeai/calliope-lab-4kasm:latest
+```
+
+### Chat Studio
+
+```bash
+docker pull calliopeai/calliope-chat-studio-kasm:latest
+docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password \
+  calliopeai/calliope-chat-studio-kasm:latest
+```
+
+### Loadr
+
+```bash
+docker pull calliopeai/calliope-loadr-kasm:latest
+docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password \
+  calliopeai/calliope-loadr-kasm:latest
 ```
 
 **Access:** https://localhost:6901
@@ -62,7 +79,7 @@ docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password \
 ## Deploy to Kasm Workspaces
 
 1. **Kasm Admin UI** → Workspaces → Add Workspace
-2. **Docker Image:** `calliopeai/calliope-ide-4kasm:latest` (or `calliope-lab-4kasm`)
+2. **Docker Image:** `calliopeai/calliope-ide-4kasm:latest` (or `lab-4kasm`, `chat-studio-kasm`, `loadr-kasm`)
 3. **Recommended Settings:**
    - Cores: 2+
    - Memory: 4096 MB+
@@ -106,23 +123,28 @@ Built on [`kasmweb/core-debian-bookworm:1.17.0`](https://hub.docker.com/r/kasmwe
 ## Development
 
 ```bash
-# Build for local testing (IDE)
-make build PRODUCT=ide
-
-# Build for local testing (Lab)
-make build PRODUCT=lab
+# Build for local testing
+make build PRODUCT=ide          # Calliope AI IDE
+make build PRODUCT=lab          # Calliope AI Lab
+make build PRODUCT=chat         # Chat Studio
+make build PRODUCT=loadr        # Loadr
 
 # Test locally
-make test
+make test PRODUCT=chat
 ```
 
 See the [Makefile](Makefile) for all available commands.
 
 ## CI/CD
 
-Images are automatically built and published when new releases are tagged in:
-- [calliope-vscode](https://github.com/calliopeai/vscode) → triggers IDE image build
-- [lab-desktop](https://github.com/calliopeai/lab-desktop) → triggers Lab image build
+Images are automatically built and published on tag push or repository dispatch:
+
+| Tag Pattern | Product | Image |
+|------------|---------|-------|
+| `ide-v*` | Calliope AI IDE | `calliope-ide-4kasm` |
+| `lab-v*` | Calliope AI Lab | `calliope-lab-4kasm` |
+| `chat-v*` | Chat Studio | `calliope-chat-studio-kasm` |
+| `loadr-v*` | Loadr | `calliope-loadr-kasm` |
 
 ## License
 
