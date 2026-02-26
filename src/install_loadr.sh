@@ -47,15 +47,17 @@ else
         exit 1
     fi
 
-    # AppImage extraction needs zlib
+    # Install squashfs-tools to extract AppImage without executing it
+    # (AppImage --appimage-extract fails under QEMU cross-arch emulation in CI)
     apt-get update
-    apt-get install -y zlib1g-dev
+    apt-get install -y squashfs-tools
 
     wget -q "${APPIMAGE_URL}" -O /tmp/loadr.AppImage
-    chmod +x /tmp/loadr.AppImage
 
-    # Extract AppImage (FUSE not available in Docker, use --appimage-extract)
-    cd /tmp && ./loadr.AppImage --appimage-extract
+    # Extract AppImage using unsquashfs (skip the ELF header offset)
+    # AppImages are squashfs archives with a prepended ELF binary
+    OFFSET=$(grep -aobP '\x68\x73\x71\x73' /tmp/loadr.AppImage | head -1 | cut -d: -f1)
+    unsquashfs -offset "${OFFSET}" -dest /tmp/squashfs-root /tmp/loadr.AppImage
     mv /tmp/squashfs-root /opt/loadr
     ln -sf /opt/loadr/loadr-desktop /usr/local/bin/loadr-desktop
     rm /tmp/loadr.AppImage
