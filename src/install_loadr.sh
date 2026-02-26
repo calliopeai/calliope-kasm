@@ -47,10 +47,14 @@ else
         exit 1
     fi
 
+    # AppImage extraction needs zlib
+    apt-get update
+    apt-get install -y zlib1g-dev
+
     wget -q "${APPIMAGE_URL}" -O /tmp/loadr.AppImage
     chmod +x /tmp/loadr.AppImage
 
-    # Extract AppImage (FUSE not available in Docker)
+    # Extract AppImage (FUSE not available in Docker, use --appimage-extract)
     cd /tmp && ./loadr.AppImage --appimage-extract
     mv /tmp/squashfs-root /opt/loadr
     ln -sf /opt/loadr/loadr-desktop /usr/local/bin/loadr-desktop
