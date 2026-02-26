@@ -5,8 +5,10 @@ on:
     tags:
       - 'ide-v*'
       - 'lab-v*'
+      - 'chat-v*'
+      - 'loadr-v*'
   repository_dispatch:
-    types: [ide-release, lab-release]
+    types: [ide-release, lab-release, chat-release, loadr-release]
   workflow_dispatch:
     inputs:
       product:
@@ -16,6 +18,8 @@ on:
         options:
           - ide
           - lab
+          - chat
+          - loadr
         default: 'ide'
       version:
         description: 'Version (e.g., 1.2.9)'
@@ -57,23 +61,14 @@ jobs:
         run: |
           # From repository_dispatch
           if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
-            if [ "${{ github.event.action }}" = "ide-release" ]; then
-              PRODUCT="ide"
-              VERSION="${{ github.event.client_payload.version }}"
-            elif [ "${{ github.event.action }}" = "lab-release" ]; then
-              PRODUCT="lab"
-              VERSION="${{ github.event.client_payload.version }}"
-            fi
+            ACTION="${{ github.event.action }}"
+            PRODUCT="${ACTION%-release}"
+            VERSION="${{ github.event.client_payload.version }}"
           # From tag push
           elif [ "${{ github.event_name }}" = "push" ]; then
             TAG="${GITHUB_REF_NAME}"
-            if [[ "$TAG" == ide-v* ]]; then
-              PRODUCT="ide"
-              VERSION="${TAG#ide-v}"
-            elif [[ "$TAG" == lab-v* ]]; then
-              PRODUCT="lab"
-              VERSION="${TAG#lab-v}"
-            fi
+            PRODUCT="${TAG%%-v*}"
+            VERSION="${TAG#*-v}"
           # From workflow_dispatch
           else
             PRODUCT="${{ inputs.product }}"
@@ -81,18 +76,18 @@ jobs:
           fi
 
           # Set image names based on product
-          if [ "$PRODUCT" = "ide" ]; then
-            IMAGE_DOCKERHUB="calliopeai/calliope-ide-4kasm"
-            IMAGE_GHCR="calliopeai/calliope-ide-4kasm"
-          else
-            IMAGE_DOCKERHUB="calliopeai/calliope-lab-4kasm"
-            IMAGE_GHCR="calliopeai/calliope-lab-4kasm"
-          fi
+          case "$PRODUCT" in
+            ide)    IMAGE="calliopeai/calliope-ide-4kasm" ;;
+            lab)    IMAGE="calliopeai/calliope-lab-4kasm" ;;
+            chat)   IMAGE="calliopeai/calliope-chat-studio-kasm" ;;
+            loadr)  IMAGE="calliopeai/calliope-loadr-kasm" ;;
+            *)      echo "ERROR: Unknown product: $PRODUCT" && exit 1 ;;
+          esac
 
           echo "product=$PRODUCT" >> $GITHUB_OUTPUT
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "image_dockerhub=$IMAGE_DOCKERHUB" >> $GITHUB_OUTPUT
-          echo "image_ghcr=$IMAGE_GHCR" >> $GITHUB_OUTPUT
+          echo "image_dockerhub=$IMAGE" >> $GITHUB_OUTPUT
+          echo "image_ghcr=$IMAGE" >> $GITHUB_OUTPUT
           echo "Building $PRODUCT v$VERSION"
 
       - name: Set up QEMU
@@ -159,39 +154,30 @@ jobs:
         id: config
         run: |
           if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
-            if [ "${{ github.event.action }}" = "ide-release" ]; then
-              PRODUCT="ide"
-              VERSION="${{ github.event.client_payload.version }}"
-            else
-              PRODUCT="lab"
-              VERSION="${{ github.event.client_payload.version }}"
-            fi
+            ACTION="${{ github.event.action }}"
+            PRODUCT="${ACTION%-release}"
+            VERSION="${{ github.event.client_payload.version }}"
           elif [ "${{ github.event_name }}" = "push" ]; then
             TAG="${GITHUB_REF_NAME}"
-            if [[ "$TAG" == ide-v* ]]; then
-              PRODUCT="ide"
-              VERSION="${TAG#ide-v}"
-            else
-              PRODUCT="lab"
-              VERSION="${TAG#lab-v}"
-            fi
+            PRODUCT="${TAG%%-v*}"
+            VERSION="${TAG#*-v}"
           else
             PRODUCT="${{ inputs.product }}"
             VERSION="${{ inputs.version }}"
           fi
 
-          if [ "$PRODUCT" = "ide" ]; then
-            IMAGE_DOCKERHUB="calliopeai/calliope-ide-4kasm"
-            IMAGE_GHCR="calliopeai/calliope-ide-4kasm"
-          else
-            IMAGE_DOCKERHUB="calliopeai/calliope-lab-4kasm"
-            IMAGE_GHCR="calliopeai/calliope-lab-4kasm"
-          fi
+          case "$PRODUCT" in
+            ide)    IMAGE="calliopeai/calliope-ide-4kasm" ;;
+            lab)    IMAGE="calliopeai/calliope-lab-4kasm" ;;
+            chat)   IMAGE="calliopeai/calliope-chat-studio-kasm" ;;
+            loadr)  IMAGE="calliopeai/calliope-loadr-kasm" ;;
+            *)      echo "ERROR: Unknown product: $PRODUCT" && exit 1 ;;
+          esac
 
           echo "product=$PRODUCT" >> $GITHUB_OUTPUT
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "image_dockerhub=$IMAGE_DOCKERHUB" >> $GITHUB_OUTPUT
-          echo "image_ghcr=$IMAGE_GHCR" >> $GITHUB_OUTPUT
+          echo "image_dockerhub=$IMAGE" >> $GITHUB_OUTPUT
+          echo "image_ghcr=$IMAGE" >> $GITHUB_OUTPUT
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3

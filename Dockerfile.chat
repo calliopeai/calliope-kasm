@@ -1,0 +1,79 @@
+ARG BASE_TAG="1.17.0"
+ARG BASE_IMAGE="core-debian-bookworm"
+FROM kasmweb/${BASE_IMAGE}:${BASE_TAG}
+
+USER root
+
+ENV HOME=/home/kasm-default-profile
+ENV STARTUPDIR=/dockerstartup
+ENV INST_SCRIPTS=$STARTUPDIR/install
+WORKDIR $HOME
+
+######### Customize Container Here ###########
+
+# Version can be overridden at build time
+ARG CALLIOPE_VERSION="1.0.0"
+ENV CALLIOPE_VERSION=${CALLIOPE_VERSION}
+
+# Install dependencies for Electron apps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcups2 \
+    libdbus-1-3 \
+    libdrm2 \
+    libgbm1 \
+    libgtk-3-0 \
+    libnspr4 \
+    libnss3 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxfixes3 \
+    libxkbcommon0 \
+    libxrandr2 \
+    xdg-utils \
+    wget \
+    ca-certificates \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy installation script
+COPY src/install_chat_studio.sh $INST_SCRIPTS/chat_studio/
+RUN chmod +x $INST_SCRIPTS/chat_studio/install_chat_studio.sh \
+    && bash $INST_SCRIPTS/chat_studio/install_chat_studio.sh \
+    && rm -rf $INST_SCRIPTS/chat_studio/
+
+# Copy custom startup script
+COPY src/chat_studio_startup.sh $STARTUPDIR/custom_startup.sh
+RUN chmod 755 $STARTUPDIR/custom_startup.sh
+
+# Set custom desktop background
+COPY calliope-bg.svg /usr/share/backgrounds/calliope-bg.svg
+RUN mkdir -p /home/kasm-default-profile/.config/xfce4/xfconf/xfce-perchannel-xml && \
+    echo '<?xml version="1.0" encoding="UTF-8"?>\n\
+<channel name="xfce4-desktop" version="1.0">\n\
+  <property name="backdrop" type="empty">\n\
+    <property name="screen0" type="empty">\n\
+      <property name="monitorVNC-0" type="empty">\n\
+        <property name="workspace0" type="empty">\n\
+          <property name="image-style" type="int" value="5"/>\n\
+          <property name="last-image" type="string" value="/usr/share/backgrounds/calliope-bg.svg"/>\n\
+        </property>\n\
+      </property>\n\
+    </property>\n\
+  </property>\n\
+</channel>\n' > /home/kasm-default-profile/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml && \
+    chown -R 1000:1000 /home/kasm-default-profile/.config
+
+######### End Customizations ###########
+
+RUN chown 1000:0 $HOME
+RUN $STARTUPDIR/set_user_permission.sh $HOME
+
+ENV HOME=/home/kasm-user
+WORKDIR $HOME
+RUN mkdir -p $HOME && chown -R 1000:0 $HOME
+
+USER 1000
