@@ -157,6 +157,17 @@ OLLAMA_HOST=0.0.0.0 ollama serve
 
 Or in your Ollama systemd service file, add `Environment="OLLAMA_HOST=0.0.0.0"`.
 
+### Supported models
+
+Available models are auto-detected from your Ollama instance. Tested with:
+
+- **DeepSeek R1** — reasoning and code generation
+- **Qwen3** — general purpose
+- **Qwen3-Coder** — code-focused tasks
+- **LLaVA** — vision/multimodal (some features)
+
+Other models may work but are not guaranteed. If you run into issues with a specific model, [file a GitHub issue](https://github.com/calliopeai/calliope-ai-desktop-releases/issues) and we'll try to accommodate.
+
 ## Development
 
 ```bash
