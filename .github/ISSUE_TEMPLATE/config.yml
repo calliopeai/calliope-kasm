@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discord Community
+    url: https://discord.gg/Z9bbbE6hJv
+    about: Ask questions and get help from the community
+  - name: Documentation
+    url: https://docs.calliope.ai
+    about: Read the Calliope AI documentation
+  - name: Application Issues
+    url: https://github.com/calliopeai/calliope-ai-desktop-releases/issues
+    about: Report bugs in the Calliope AI applications (not the Kasm images)

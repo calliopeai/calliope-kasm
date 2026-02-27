@@ -18,12 +18,15 @@
   <a href="https://hub.docker.com/r/calliopeai/calliope-loadr-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-loadr-kasm?sort=semver&filter=*-amd64&label=Loadr%20amd64&logo=docker" alt="Loadr amd64"></a>
   <a href="https://hub.docker.com/r/calliopeai/calliope-loadr-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-loadr-kasm?sort=semver&filter=*-arm64&label=Loadr%20arm64&logo=docker" alt="Loadr arm64"></a>
   <a href="https://github.com/calliopeai/calliope-kasm/actions"><img src="https://img.shields.io/github/actions/workflow/status/calliopeai/calliope-kasm/build-publish.yml?label=build&logo=github" alt="Build Status"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/calliopeai/calliope-kasm" alt="License"></a>
 </p>
 
 <p align="center">
   <a href="https://calliope.ai">Website</a> •
   <a href="https://docs.calliope.ai">Documentation</a> •
-  <a href="https://discord.gg/Z9bbbE6hJv">Discord</a>
+  <a href="https://discord.gg/Z9bbbE6hJv">Discord</a> •
+  <a href="CONTRIBUTING.md">Contributing</a> •
+  <a href="SECURITY.md">Security</a>
 </p>
 
 ---
@@ -200,7 +203,7 @@ Images are automatically built and published on tag push or repository dispatch:
 
 ## License
 
-Calliope AI applications are free to use. See [calliope.ai](https://calliope.ai) for terms.
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 

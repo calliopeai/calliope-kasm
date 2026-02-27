@@ -1,0 +1,91 @@
+name: Bug Report
+description: Report a problem with a Calliope AI Kasm image
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: product
+    attributes:
+      label: Product
+      description: Which image are you using?
+      options:
+        - Calliope AI IDE (calliope-ide-4kasm)
+        - Calliope AI Lab (calliope-lab-4kasm)
+        - Chat Studio (calliope-chat-studio-kasm)
+        - Loadr (calliope-loadr-kasm)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: Architecture
+      options:
+        - amd64 (Intel/AMD)
+        - arm64 (Apple Silicon / Graviton)
+    validations:
+      required: true
+
+  - type: input
+    id: image-tag
+    attributes:
+      label: Image Tag
+      description: "Which tag are you running? (e.g., latest, 1.2.9)"
+      placeholder: "latest"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: deployment
+    attributes:
+      label: Deployment Method
+      options:
+        - Standalone Docker (docker run)
+        - Kasm Workspaces
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this?
+      placeholder: |
+        1. Pull the image...
+        2. Run with...
+        3. Navigate to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Screenshots
+      description: Paste any relevant container logs or screenshots.
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: docker-version
+    attributes:
+      label: Docker Version
+      description: "Output of `docker --version`"
+      placeholder: "Docker version 27.x.x"
+    validations:
+      required: false
