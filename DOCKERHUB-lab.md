@@ -72,3 +72,5 @@ Calliope AI Lab is free to use. See [calliope.ai](https://calliope.ai) for terms
 ---
 
 **Built by [Calliope Labs](https://calliope.ai)**
+
+&copy; 2025–2026 Calliope Labs Inc. All rights reserved.

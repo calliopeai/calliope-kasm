@@ -9,14 +9,16 @@
 </p>
 
 <p align="center">
+  <a href="https://hub.docker.com/r/calliopeai/calliope-base-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-base-kasm?sort=semver&label=CLI%20Agent&logo=docker" alt="CLI Agent"></a>
   <a href="https://hub.docker.com/r/calliopeai/calliope-ide-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-ide-4kasm?sort=semver&filter=*-amd64&label=IDE%20amd64&logo=docker" alt="IDE amd64"></a>
   <a href="https://hub.docker.com/r/calliopeai/calliope-ide-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-ide-4kasm?sort=semver&filter=*-arm64&label=IDE%20arm64&logo=docker" alt="IDE arm64"></a>
   <a href="https://hub.docker.com/r/calliopeai/calliope-lab-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-lab-4kasm?sort=semver&filter=*-amd64&label=Lab%20amd64&logo=docker" alt="Lab amd64"></a>
   <a href="https://hub.docker.com/r/calliopeai/calliope-lab-4kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-lab-4kasm?sort=semver&filter=*-arm64&label=Lab%20arm64&logo=docker" alt="Lab arm64"></a>
   <a href="https://hub.docker.com/r/calliopeai/calliope-chat-studio-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-chat-studio-kasm?sort=semver&filter=*-amd64&label=Chat%20Studio%20amd64&logo=docker" alt="Chat Studio amd64"></a>
   <a href="https://hub.docker.com/r/calliopeai/calliope-chat-studio-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-chat-studio-kasm?sort=semver&filter=*-arm64&label=Chat%20Studio%20arm64&logo=docker" alt="Chat Studio arm64"></a>
-  <a href="https://hub.docker.com/r/calliopeai/calliope-loadr-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-loadr-kasm?sort=semver&filter=*-amd64&label=Loadr%20amd64&logo=docker" alt="Loadr amd64"></a>
-  <a href="https://hub.docker.com/r/calliopeai/calliope-loadr-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-loadr-kasm?sort=semver&filter=*-arm64&label=Loadr%20arm64&logo=docker" alt="Loadr arm64"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-loadr-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-loadr-kasm?sort=semver&filter=*-amd64&label=DBLoader%20amd64&logo=docker" alt="DBLoader amd64"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-loadr-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-loadr-kasm?sort=semver&filter=*-arm64&label=DBLoader%20arm64&logo=docker" alt="DBLoader arm64"></a>
+  <a href="https://hub.docker.com/r/calliopeai/calliope-desktop-suite-kasm"><img src="https://img.shields.io/docker/v/calliopeai/calliope-desktop-suite-kasm?sort=semver&label=Suite&logo=docker" alt="Suite"></a>
   <a href="https://github.com/calliopeai/calliope-kasm/actions"><img src="https://img.shields.io/github/actions/workflow/status/calliopeai/calliope-kasm/build-publish.yml?label=build&logo=github" alt="Build Status"></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/calliopeai/calliope-kasm" alt="License"></a>
 </p>
@@ -37,20 +39,27 @@ Docker images for running [Calliope AI](https://calliope.ai) desktop application
 
 | Image | Description |
 |-------|-------------|
+| **calliope-base-kasm** | Lightweight desktop with the Calliope CLI agent pre-installed |
 | **calliope-ide-4kasm** | AI-enhanced code editor built on VS Code |
 | **calliope-lab-4kasm** | Interactive notebook environment for data analysis |
 | **calliope-chat-studio-kasm** | AI-powered SQL agent for natural language database queries |
-| **calliope-loadr-kasm** | AI-powered data management studio with multi-database support |
+| **calliope-loadr-kasm** | AI-powered data management studio with multi-database support (DBLoader) |
+| **calliope-desktop-suite-kasm** | All Calliope AI desktop apps bundled in one workspace |
 
 ## Quick Start
+
+### Calliope AI CLI Agent (Base)
+
+```bash
+docker pull calliopeai/calliope-base-kasm:latest
+docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password \
+  calliopeai/calliope-base-kasm:latest
+```
 
 ### Calliope AI IDE
 
 ```bash
-# Pull the image
 docker pull calliopeai/calliope-ide-4kasm:latest
-
-# Run standalone (for testing)
 docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password \
   calliopeai/calliope-ide-4kasm:latest
 ```
@@ -71,12 +80,20 @@ docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password \
   calliopeai/calliope-chat-studio-kasm:latest
 ```
 
-### Loadr
+### DBLoader
 
 ```bash
 docker pull calliopeai/calliope-loadr-kasm:latest
 docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password \
   calliopeai/calliope-loadr-kasm:latest
+```
+
+### Calliope AI Suite (All Apps)
+
+```bash
+docker pull calliopeai/calliope-desktop-suite-kasm:latest
+docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password \
+  calliopeai/calliope-desktop-suite-kasm:latest
 ```
 
 **Access:** https://localhost:6901
@@ -86,7 +103,7 @@ docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_PW=password \
 ## Deploy to Kasm Workspaces
 
 1. **Kasm Admin UI** → Workspaces → Add Workspace
-2. **Docker Image:** `calliopeai/calliope-ide-4kasm:latest` (or `lab-4kasm`, `chat-studio-kasm`, `loadr-kasm`)
+2. **Docker Image:** `calliopeai/calliope-ide-4kasm:latest` (or `base-kasm`, `lab-4kasm`, `chat-studio-kasm`, `loadr-kasm`, `desktop-suite-kasm`)
 3. **Recommended Settings:**
    - Cores: 2+
    - Memory: 4096 MB+
@@ -179,10 +196,12 @@ Other models may work but are not guaranteed. If you run into issues with a spec
 
 ```bash
 # Build for local testing
+make build                      # Calliope AI CLI Agent (base, default)
 make build PRODUCT=ide          # Calliope AI IDE
 make build PRODUCT=lab          # Calliope AI Lab
 make build PRODUCT=chat         # Chat Studio
-make build PRODUCT=loadr        # Loadr
+make build PRODUCT=loadr        # DBLoader
+make build PRODUCT=suite        # Calliope AI Suite (all apps)
 
 # Test locally
 make test PRODUCT=chat
@@ -196,10 +215,12 @@ Images are automatically built and published on tag push or repository dispatch:
 
 | Tag Pattern | Product | Image |
 |------------|---------|-------|
+| `base-v*` | Calliope AI CLI Agent | `calliope-base-kasm` |
 | `ide-v*` | Calliope AI IDE | `calliope-ide-4kasm` |
 | `lab-v*` | Calliope AI Lab | `calliope-lab-4kasm` |
 | `chat-v*` | Chat Studio | `calliope-chat-studio-kasm` |
-| `loadr-v*` | Loadr | `calliope-loadr-kasm` |
+| `loadr-v*` | DBLoader | `calliope-loadr-kasm` |
+| `suite-v*` | Calliope AI Suite | `calliope-desktop-suite-kasm` |
 
 ## License
 
@@ -208,5 +229,6 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 
 <p align="center">
-  <strong>Built by <a href="https://calliope.ai">Calliope Labs</a></strong>
+  <strong>Built by <a href="https://calliope.ai">Calliope Labs</a></strong><br>
+  &copy; 2025–2026 Calliope Labs Inc. All rights reserved.
 </p>

@@ -1,4 +1,4 @@
-# Loadr for Kasm Workspaces
+# Calliope AI DBLoader for Kasm Workspaces
 
 Browser-accessible AI-powered data management studio powered by [Kasm Workspaces](https://kasmweb.com).
 
@@ -36,7 +36,7 @@ Access at `https://localhost:6901` (user: `kasm_user`, password: `password`)
 
 ## What's Included
 
-- **Loadr** - AI-powered data management studio
+- **DBLoader** - AI-powered data management studio
 - **Kasm Desktop** - XFCE4 with KasmVNC
 - **Multi-Database Support** - PostgreSQL, MySQL, SQLite, MSSQL, Snowflake, MongoDB, and more
 - **SQL Editor** - Monaco-based editor with autocomplete and syntax highlighting
@@ -69,8 +69,10 @@ Built on `kasmweb/core-debian-bookworm:1.17.0` providing:
 
 ## License
 
-Loadr is free to use. See [calliope.ai](https://calliope.ai) for terms.
+DBLoader is free to use. See [calliope.ai](https://calliope.ai) for terms.
 
 ---
 
 **Built by [Calliope Labs](https://calliope.ai)**
+
+&copy; 2025–2026 Calliope Labs Inc. All rights reserved.
