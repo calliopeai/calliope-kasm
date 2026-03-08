@@ -11,7 +11,7 @@ const nextConfig = {
     contactUrl: 'https://calliope.ai/support',
   },
   reactStrictMode: true,
-  basePath: '/calliope-kasm/1.0',
+  basePath: '/calliope-kasm',
   trailingSlash: true,
   images: {
     unoptimized: true,
