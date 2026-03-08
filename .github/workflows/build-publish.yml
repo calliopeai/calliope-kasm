@@ -3,12 +3,14 @@ name: Build and Publish Kasm Image
 on:
   push:
     tags:
+      - 'base-v*'
       - 'ide-v*'
       - 'lab-v*'
       - 'chat-v*'
       - 'loadr-v*'
+      - 'suite-v*'
   repository_dispatch:
-    types: [ide-release, lab-release, chat-release, loadr-release]
+    types: [base-release, ide-release, lab-release, chat-release, loadr-release, suite-release, cli-release]
   workflow_dispatch:
     inputs:
       product:
@@ -16,15 +18,17 @@ on:
         required: true
         type: choice
         options:
+          - base
           - ide
           - lab
           - chat
           - loadr
-        default: 'ide'
+          - suite
+        default: 'base'
       version:
         description: 'Version (e.g., 1.2.9)'
         required: true
-        default: '1.2.9'
+        default: '1.0.0'
       push:
         description: 'Push to registry'
         type: boolean
@@ -77,10 +81,12 @@ jobs:
 
           # Set image names based on product
           case "$PRODUCT" in
+            base)   IMAGE="calliopeai/calliope-base-kasm" ;;
             ide)    IMAGE="calliopeai/calliope-ide-4kasm" ;;
             lab)    IMAGE="calliopeai/calliope-lab-4kasm" ;;
             chat)   IMAGE="calliopeai/calliope-chat-studio-kasm" ;;
             loadr)  IMAGE="calliopeai/calliope-loadr-kasm" ;;
+            suite)  IMAGE="calliopeai/calliope-desktop-suite-kasm" ;;
             *)      echo "ERROR: Unknown product: $PRODUCT" && exit 1 ;;
           esac
 
@@ -167,10 +173,12 @@ jobs:
           fi
 
           case "$PRODUCT" in
+            base)   IMAGE="calliopeai/calliope-base-kasm" ;;
             ide)    IMAGE="calliopeai/calliope-ide-4kasm" ;;
             lab)    IMAGE="calliopeai/calliope-lab-4kasm" ;;
             chat)   IMAGE="calliopeai/calliope-chat-studio-kasm" ;;
             loadr)  IMAGE="calliopeai/calliope-loadr-kasm" ;;
+            suite)  IMAGE="calliopeai/calliope-desktop-suite-kasm" ;;
             *)      echo "ERROR: Unknown product: $PRODUCT" && exit 1 ;;
           esac
 

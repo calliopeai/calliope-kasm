@@ -1,0 +1,85 @@
+name: Auto-update on CLI Release
+
+on:
+  repository_dispatch:
+    types: [cli-release]
+  schedule:
+    - cron: '0 */6 * * *'  # Check every 6 hours
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  check-and-rebuild:
+    name: Check for CLI updates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get latest CLI version from npm
+        id: cli
+        run: |
+          LATEST=$(npm view @calliopelabs/cli version 2>/dev/null || echo "")
+          if [ -z "$LATEST" ]; then
+            echo "Failed to fetch CLI version from npm"
+            exit 1
+          fi
+          echo "latest=$LATEST" >> $GITHUB_OUTPUT
+          echo "Latest CLI version on npm: $LATEST"
+
+      - name: Check against last known version
+        id: check
+        run: |
+          LATEST="${{ steps.cli.outputs.latest }}"
+          KNOWN=""
+          if [ -f .cli-version ]; then
+            KNOWN=$(cat .cli-version)
+          fi
+          echo "Known: ${KNOWN:-none}, Latest: $LATEST"
+
+          if [ "$KNOWN" = "$LATEST" ]; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "CLI version unchanged, skipping rebuild"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "CLI version changed from ${KNOWN:-none} to $LATEST — triggering rebuilds"
+          fi
+
+      - name: Update tracked version
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          echo "${{ steps.cli.outputs.latest }}" > .cli-version
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .cli-version
+          git commit -m "Update CLI version tracker to ${{ steps.cli.outputs.latest }}"
+          git push
+
+      - name: Rebuild all images
+        if: steps.check.outputs.changed == 'true' || github.event_name == 'repository_dispatch'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Product versions from Makefile
+          declare -A PRODUCTS
+          PRODUCTS[base]="1.0.0"
+          PRODUCTS[ide]="1.2.9"
+          PRODUCTS[lab]="1.2.5"
+          PRODUCTS[chat]="1.0.0"
+          PRODUCTS[loadr]="1.0.2"
+          PRODUCTS[suite]="1.0.0"
+
+          for PRODUCT in "${!PRODUCTS[@]}"; do
+            VERSION="${PRODUCTS[$PRODUCT]}"
+            echo "Triggering rebuild: $PRODUCT v$VERSION"
+            gh workflow run build-publish.yml \
+              -f product="$PRODUCT" \
+              -f version="$VERSION" \
+              -f push=true
+            # Small delay to avoid API rate limits
+            sleep 2
+          done
+
+          echo "All rebuilds triggered for CLI v${{ steps.cli.outputs.latest }}"
