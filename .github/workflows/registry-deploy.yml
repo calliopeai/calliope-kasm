@@ -17,8 +17,8 @@ jobs:
 
       - name: Build registry
         run: |
-          npm ci --prefix processing
-          npm ci --prefix site
+          npm install --prefix processing
+          npm install --prefix site
           ./build_all_branches.sh
 
       - name: Deploy to GitHub Pages
