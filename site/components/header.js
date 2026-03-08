@@ -21,28 +21,9 @@ export default function Header({ searchText, changeSearch }) {
   return (
     <header className="relative font-light overflow-hidden bg-gradient-to-tr from-[#162d48] to-[#2980b9] p-8 xl:px-32 text-white gap-5 md:gap-0 flex flex-wrap justify-center items-center">
       <Bubbles />
-      <div className='relative z-10'>
-        <div className="text-3xl">{process.env.name}</div>
-        <div className="text-sm uppercase w-full flex justify-between">
-          <span className='opacity-70'>W</span>
-          <span className='opacity-70'>o</span>
-          <span className='opacity-70'>r</span>
-          <span className='opacity-70'>k</span>
-          <span className='opacity-70'>s</span>
-          <span className='opacity-70'>p</span>
-          <span className='opacity-70'>a</span>
-          <span className='opacity-70'>c</span>
-          <span className='opacity-70'>e</span>
-          <span>&nbsp;</span>
-          <span className='opacity-40'>R</span>
-          <span className='opacity-40'>e</span>
-          <span className='opacity-40'>g</span>
-          <span className='opacity-40'>i</span>
-          <span className='opacity-40'>s</span>
-          <span className='opacity-40'>t</span>
-          <span className='opacity-40'>r</span>
-          <span className='opacity-40'>y</span>
-        </div>
+      <div className='relative z-10 flex flex-col items-center'>
+        <img src={getLink("/img/calliope-darkmode.svg")} alt={process.env.name} style={{ height: '40px' }} />
+        <div className="text-xs uppercase tracking-[0.3em] opacity-50 mt-1">Workspace Registry</div>
       </div>
       <nav className='relative z-10 mx-12'>
         <a href={getLink("/")} className={'p-4 inline-block rounded-full border border-solid' + (router.pathname == "/" ? ' border-white/30' : ' border-transparent')}>Library</a>
