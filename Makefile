@@ -1,14 +1,17 @@
 # Calliope AI Kasm Image Build
 #
 # Usage: make build PRODUCT=chat VERSION=1.0.0
-# Products: ide, lab, chat, loadr
+# Products: base, ide, lab, chat, loadr
 
-PRODUCT := ide
+PRODUCT := base
 REGISTRY := ghcr.io/calliopeai
 KASM_VERSION := 1.17.0
 
 # Product-specific image names and default versions
-ifeq ($(PRODUCT),ide)
+ifeq ($(PRODUCT),base)
+  IMAGE_NAME := calliope-base-kasm
+  VERSION ?= 1.0.0
+else ifeq ($(PRODUCT),ide)
   IMAGE_NAME := calliope-ide-4kasm
   VERSION ?= 1.2.9
 else ifeq ($(PRODUCT),lab)
@@ -34,7 +37,7 @@ TAG_DEV := $(IMAGE_NAME):dev
 help:
 	@echo "Calliope AI Kasm Image Build"
 	@echo ""
-	@echo "Products: ide (default), lab, chat, loadr"
+	@echo "Products: base (default), ide, lab, chat, loadr"
 	@echo ""
 	@echo "Usage:"
 	@echo "  make build                    - Build for current platform (default: ide)"

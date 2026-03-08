@@ -1,0 +1,51 @@
+ARG BASE_TAG="1.17.0"
+ARG BASE_IMAGE="core-debian-bookworm"
+FROM kasmweb/${BASE_IMAGE}:${BASE_TAG}
+
+USER root
+
+ENV HOME=/home/kasm-default-profile
+ENV STARTUPDIR=/dockerstartup
+ENV INST_SCRIPTS=$STARTUPDIR/install
+WORKDIR $HOME
+
+######### Customize Container Here ###########
+
+# Install Calliope CLI (Node.js + @calliopelabs/cli)
+COPY src/install_calliope_cli.sh $INST_SCRIPTS/calliope_cli/
+RUN chmod +x $INST_SCRIPTS/calliope_cli/install_calliope_cli.sh \
+    && bash $INST_SCRIPTS/calliope_cli/install_calliope_cli.sh \
+    && rm -rf $INST_SCRIPTS/calliope_cli/
+
+# Copy custom startup script (opens terminal)
+COPY src/base_startup.sh $STARTUPDIR/custom_startup.sh
+RUN chmod 755 $STARTUPDIR/custom_startup.sh
+
+# Set custom desktop background
+COPY calliope-bg.svg /usr/share/backgrounds/calliope-bg.svg
+RUN mkdir -p /home/kasm-default-profile/.config/xfce4/xfconf/xfce-perchannel-xml && \
+    echo '<?xml version="1.0" encoding="UTF-8"?>\n\
+<channel name="xfce4-desktop" version="1.0">\n\
+  <property name="backdrop" type="empty">\n\
+    <property name="screen0" type="empty">\n\
+      <property name="monitorVNC-0" type="empty">\n\
+        <property name="workspace0" type="empty">\n\
+          <property name="image-style" type="int" value="5"/>\n\
+          <property name="last-image" type="string" value="/usr/share/backgrounds/calliope-bg.svg"/>\n\
+        </property>\n\
+      </property>\n\
+    </property>\n\
+  </property>\n\
+</channel>\n' > /home/kasm-default-profile/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml && \
+    chown -R 1000:1000 /home/kasm-default-profile/.config
+
+######### End Customizations ###########
+
+RUN chown 1000:0 $HOME
+RUN $STARTUPDIR/set_user_permission.sh $HOME
+
+ENV HOME=/home/kasm-user
+WORKDIR $HOME
+RUN mkdir -p $HOME && chown -R 1000:0 $HOME
+
+USER 1000
