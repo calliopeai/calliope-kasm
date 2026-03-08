@@ -1,5 +1,5 @@
 {
-  "friendly_name": "Calliope AI Desktop Suite",
+  "friendly_name": "Calliope AI Suite",
   "description": "All Calliope AI desktop apps in one workspace: IDE, Lab, Chat Studio, Loadr, and the CLI.",
   "docker_registry": "https://index.docker.io/v1/",
   "image_src": "desktop-suite.svg",
