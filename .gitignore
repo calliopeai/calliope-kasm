@@ -15,6 +15,11 @@
 # Claude Code
 .claude/
 
+# Registry build output
+public/
+site/node_modules/
+processing/node_modules/
+
 # OS
 .DS_Store
 Thumbs.db

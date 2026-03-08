@@ -1,0 +1,31 @@
+{
+  "friendly_name": "Calliope AI IDE",
+  "description": "AI-enhanced code editor built on VS Code, streamed to your browser via Kasm Workspaces.",
+  "docker_registry": "https://index.docker.io/v1/",
+  "image_src": "calliope-logo.png",
+  "run_config": {
+    "hostname": "kasm"
+  },
+  "exec_config": {
+    "go": {
+      "cmd": "bash -c '/dockerstartup/custom_startup.sh --go --url \"$KASM_URL\"'"
+    },
+    "assign": {
+      "cmd": "bash -c '/dockerstartup/custom_startup.sh --assign --url \"$KASM_URL\"'"
+    }
+  },
+  "categories": [
+    "Development"
+  ],
+  "architecture": [
+    "amd64",
+    "arm64"
+  ],
+  "compatibility": [
+    {
+      "version": "1.17.x",
+      "image": "calliopeai/calliope-ide-4kasm:latest",
+      "uncompressed_size_mb": 3000
+    }
+  ]
+}

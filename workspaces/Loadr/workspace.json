@@ -1,0 +1,32 @@
+{
+  "friendly_name": "Calliope Loadr",
+  "description": "AI-powered data management studio with multi-database support, streamed to your browser via Kasm Workspaces.",
+  "docker_registry": "https://index.docker.io/v1/",
+  "image_src": "calliope-logo.png",
+  "run_config": {
+    "hostname": "kasm"
+  },
+  "exec_config": {
+    "go": {
+      "cmd": "bash -c '/dockerstartup/custom_startup.sh --go --url \"$KASM_URL\"'"
+    },
+    "assign": {
+      "cmd": "bash -c '/dockerstartup/custom_startup.sh --assign --url \"$KASM_URL\"'"
+    }
+  },
+  "categories": [
+    "Development",
+    "Database"
+  ],
+  "architecture": [
+    "amd64",
+    "arm64"
+  ],
+  "compatibility": [
+    {
+      "version": "1.17.x",
+      "image": "calliopeai/calliope-loadr-kasm:latest",
+      "uncompressed_size_mb": 2500
+    }
+  ]
+}
