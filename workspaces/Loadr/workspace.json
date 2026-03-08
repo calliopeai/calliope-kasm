@@ -1,5 +1,5 @@
 {
-  "friendly_name": "Calliope AI Loadr",
+  "friendly_name": "Calliope AI DBLoader",
   "description": "AI-powered data management studio with multi-database support, streamed to your browser via Kasm Workspaces.",
   "docker_registry": "https://index.docker.io/v1/",
   "image_src": "loadr.svg",
