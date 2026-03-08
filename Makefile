@@ -1,7 +1,7 @@
 # Calliope AI Kasm Image Build
 #
 # Usage: make build PRODUCT=chat VERSION=1.0.0
-# Products: base, ide, lab, chat, loadr
+# Products: base, ide, lab, chat, loadr, suite
 
 PRODUCT := base
 REGISTRY := ghcr.io/calliopeai
@@ -23,6 +23,9 @@ else ifeq ($(PRODUCT),chat)
 else ifeq ($(PRODUCT),loadr)
   IMAGE_NAME := calliope-loadr-kasm
   VERSION ?= 1.0.2
+else ifeq ($(PRODUCT),suite)
+  IMAGE_NAME := calliope-desktop-suite-kasm
+  VERSION ?= 1.0.0
 endif
 
 DOCKERFILE := Dockerfile.$(PRODUCT)
@@ -37,7 +40,7 @@ TAG_DEV := $(IMAGE_NAME):dev
 help:
 	@echo "Calliope AI Kasm Image Build"
 	@echo ""
-	@echo "Products: base (default), ide, lab, chat, loadr"
+	@echo "Products: base (default), ide, lab, chat, loadr, suite"
 	@echo ""
 	@echo "Usage:"
 	@echo "  make build                    - Build for current platform (default: ide)"
