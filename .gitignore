@@ -16,7 +16,7 @@
 .claude/
 
 # Registry build output
-public/
+/public/
 site/node_modules/
 processing/node_modules/
 

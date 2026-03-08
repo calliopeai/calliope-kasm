@@ -2,7 +2,7 @@
   "friendly_name": "Calliope Loadr",
   "description": "AI-powered data management studio with multi-database support, streamed to your browser via Kasm Workspaces.",
   "docker_registry": "https://index.docker.io/v1/",
-  "image_src": "calliope-logo.png",
+  "image_src": "loadr.svg",
   "run_config": {
     "hostname": "kasm"
   },

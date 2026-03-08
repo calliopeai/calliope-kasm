@@ -2,7 +2,7 @@
   "friendly_name": "Calliope AI Lab",
   "description": "Interactive notebook environment for data analysis, streamed to your browser via Kasm Workspaces.",
   "docker_registry": "https://index.docker.io/v1/",
-  "image_src": "calliope-logo.png",
+  "image_src": "calliope-lab.svg",
   "run_config": {
     "hostname": "kasm"
   },
