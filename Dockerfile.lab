@@ -39,6 +39,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Calliope CLI (available in terminal across all workspaces)
+COPY src/install_calliope_cli.sh $INST_SCRIPTS/calliope_cli/
+RUN chmod +x $INST_SCRIPTS/calliope_cli/install_calliope_cli.sh \
+    && bash $INST_SCRIPTS/calliope_cli/install_calliope_cli.sh \
+    && rm -rf $INST_SCRIPTS/calliope_cli/
+
 # Install Calliope Lab
 # Note: Validates .deb architecture matches target to catch misbuilt releases
 RUN ARCH=$(dpkg --print-architecture) && \
