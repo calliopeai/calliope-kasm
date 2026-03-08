@@ -1,5 +1,5 @@
 {
-  "friendly_name": "Calliope Chat Studio",
+  "friendly_name": "Calliope AI Chat Studio",
   "description": "AI-powered SQL agent for natural language database queries, streamed to your browser via Kasm Workspaces.",
   "docker_registry": "https://index.docker.io/v1/",
   "image_src": "chat-studio.svg",
