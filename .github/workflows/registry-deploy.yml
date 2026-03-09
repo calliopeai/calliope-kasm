@@ -2,8 +2,8 @@ name: Build Registry
 
 on:
   push:
-    branches:
-      - main
+    branches-ignore:
+      - 'gh-pages'
 
 permissions:
   contents: write

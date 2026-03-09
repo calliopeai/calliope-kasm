@@ -1,17 +1,31 @@
 #!/bin/sh
 
-# Build the Calliope AI workspace registry
+DEFAULT=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
 
-# 1. Process workspaces into list.json + icons (outputs to public/)
-node processing
+mkdir base
+cat > base/index.html << EOF
+<meta http-equiv="refresh" content="0; url=./$DEFAULT/">
+EOF
+touch base/.nojekyll
 
-# 2. Preserve processing output before site build overwrites public/
-cp -a public/. /tmp/registry-data/
+# Generating documentation for each other branch in a subdirectory
+echo "All branches:"
+git fetch --all
+echo "$(git branch --remotes --format '%(refname:lstrip=3)' | grep -Ev '^(HEAD|develop|gh-pages)$')"
+for BRANCH in $(git branch --remotes --format '%(refname:lstrip=3)' | grep -Ev '^(HEAD|develop|gh-pages)$'); do
+    SANITIZED_BRANCH="$(echo $BRANCH | sed 's/\//_/g')"
+    echo "$SANITIZED_BRANCH" >> base/versions.txt
+    git checkout --force $BRANCH
+    node processing
+    cp -a public/. process
+    sed -i "s/1.0/$SANITIZED_BRANCH/" site/next.config.js
+    npm install --quiet --prefix site
+    npm run deploy --prefix site
+    cp -a process/. public/ # Have to run it again because the deploy wipes the file and folders out
+    rm -rf process
+    sed -i "s/$SANITIZED_BRANCH/1.0/" site/next.config.js # Set it back to 1.0 so it can be changed again on the next loop
+    mv public base/$SANITIZED_BRANCH
+    cp base/$SANITIZED_BRANCH/favicon.ico base/favicon.ico
+done
 
-# 3. Build the Next.js site (outputs to public/, wiping previous contents)
-npm run deploy --prefix site
-
-# 4. Restore processing output into the built site
-cp -a /tmp/registry-data/. public/
-
-touch public/.nojekyll
+mv base public
