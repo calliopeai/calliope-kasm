@@ -29,10 +29,20 @@ apt-get install -y nodejs
 echo "Node.js $(node --version) installed"
 echo "npm $(npm --version) installed"
 
-# Install Calliope CLI globally
-npm install -g @calliopelabs/cli
+# Install Calliope CLI + agent CLIs + SDK backends
+# Use || true for packages that may not be published yet
+npm install -g \
+  @calliopelabs/cli \
+  @anthropic-ai/claude-code \
+  @google/gemini-cli \
+  @openai/codex \
+  @anthropic-ai/claude-agent-sdk \
+  @openai/agents \
+  @google/adk \
+  || true
 
 echo "Calliope CLI installed: $(npx calliope --version 2>/dev/null || echo 'ok')"
+echo "Agent CLIs: claude=$(which claude 2>/dev/null || echo 'n/a') gemini=$(which gemini 2>/dev/null || echo 'n/a') codex=$(which codex 2>/dev/null || echo 'n/a')"
 
 # Cleanup
 apt-get clean
