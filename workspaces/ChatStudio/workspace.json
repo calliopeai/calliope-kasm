@@ -27,6 +27,11 @@
       "version": "1.17.x",
       "image": "calliopeai/calliope-chat-studio-kasm:latest",
       "uncompressed_size_mb": 2500
+    },
+    {
+      "version": "1.18.x",
+      "image": "calliopeai/calliope-chat-studio-kasm:latest",
+      "uncompressed_size_mb": 2500
     }
   ]
 }

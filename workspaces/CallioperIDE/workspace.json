@@ -26,6 +26,11 @@
       "version": "1.17.x",
       "image": "calliopeai/calliope-ide-4kasm:latest",
       "uncompressed_size_mb": 3000
+    },
+    {
+      "version": "1.18.x",
+      "image": "calliopeai/calliope-ide-4kasm:latest",
+      "uncompressed_size_mb": 3000
     }
   ]
 }
