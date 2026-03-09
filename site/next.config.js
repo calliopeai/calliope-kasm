@@ -7,7 +7,7 @@ const nextConfig = {
     name: 'Calliope AI',
     description: 'AI development workspaces by Calliope Labs.',
     icon: '/img/logo.svg',
-    listUrl: 'https://calliopeai.github.io/calliope-kasm/1.0/',
+    listUrl: 'https://calliopeai.github.io/calliope-kasm/',
     contactUrl: 'https://calliope.ai/support',
   },
   reactStrictMode: true,
