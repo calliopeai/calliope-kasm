@@ -12,8 +12,8 @@ WORKDIR $HOME
 ######### Customize Container Here ###########
 
 # Per-app versions (override at build time)
-ARG CALLIOPE_IDE_VERSION="1.2.9"
-ARG CALLIOPE_LAB_VERSION="1.2.5"
+ARG CALLIOPE_IDE_VERSION="1.4.0"
+ARG CALLIOPE_LAB_VERSION="1.3.1"
 ARG CALLIOPE_CHAT_VERSION="1.0.0"
 ARG CALLIOPE_LOADR_VERSION="1.0.2"
 

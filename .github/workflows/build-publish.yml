@@ -26,7 +26,7 @@ on:
           - suite
         default: 'base'
       version:
-        description: 'Version (e.g., 1.2.9)'
+        description: 'Version (e.g., 1.4.0)'
         required: true
         default: '1.0.0'
       push:

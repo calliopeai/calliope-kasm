@@ -13,10 +13,10 @@ ifeq ($(PRODUCT),base)
   VERSION ?= 1.0.0
 else ifeq ($(PRODUCT),ide)
   IMAGE_NAME := calliope-ide-4kasm
-  VERSION ?= 1.2.9
+  VERSION ?= 1.4.0
 else ifeq ($(PRODUCT),lab)
   IMAGE_NAME := calliope-lab-4kasm
-  VERSION ?= 1.2.5
+  VERSION ?= 1.3.1
 else ifeq ($(PRODUCT),chat)
   IMAGE_NAME := calliope-chat-studio-kasm
   VERSION ?= 1.0.0

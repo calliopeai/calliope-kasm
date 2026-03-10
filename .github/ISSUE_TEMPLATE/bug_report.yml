@@ -29,7 +29,7 @@ body:
     id: image-tag
     attributes:
       label: Image Tag
-      description: "Which tag are you running? (e.g., latest, 1.2.9)"
+      description: "Which tag are you running? (e.g., latest, 1.4.0)"
       placeholder: "latest"
     validations:
       required: true

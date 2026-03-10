@@ -9,7 +9,7 @@ ARCH=$(dpkg --print-architecture)
 echo "Detected architecture: ${ARCH}"
 
 # Version to install (can be overridden via build arg)
-CALLIOPE_VERSION="${CALLIOPE_VERSION:-1.2.9}"
+CALLIOPE_VERSION="${CALLIOPE_VERSION:-1.4.0}"
 
 # Map architecture to release naming
 case "${ARCH}" in

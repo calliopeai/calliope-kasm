@@ -65,8 +65,8 @@ jobs:
           # Product versions from Makefile
           declare -A PRODUCTS
           PRODUCTS[base]="1.0.0"
-          PRODUCTS[ide]="1.2.9"
-          PRODUCTS[lab]="1.2.5"
+          PRODUCTS[ide]="1.4.0"
+          PRODUCTS[lab]="1.3.1"
           PRODUCTS[chat]="1.0.0"
           PRODUCTS[loadr]="1.0.2"
           PRODUCTS[suite]="1.0.0"
