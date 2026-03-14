@@ -57,29 +57,16 @@ jobs:
           git commit -m "Update CLI version tracker to ${{ steps.cli.outputs.latest }}"
           git push
 
-      - name: Rebuild all images
+      - name: Rebuild base image
         if: steps.check.outputs.changed == 'true' || github.event_name == 'repository_dispatch'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Product versions from Makefile
-          declare -A PRODUCTS
-          PRODUCTS[base]="1.0.0"
-          PRODUCTS[ide]="1.4.0"
-          PRODUCTS[lab]="1.3.1"
-          PRODUCTS[chat]="1.0.0"
-          PRODUCTS[loadr]="1.0.2"
-          PRODUCTS[suite]="1.0.0"
+          BASE_VERSION="1.0.0"
+          echo "Triggering base rebuild for CLI v${{ steps.cli.outputs.latest }}"
+          gh workflow run build-publish.yml \
+            -f product="base" \
+            -f version="$BASE_VERSION" \
+            -f push=true
 
-          for PRODUCT in "${!PRODUCTS[@]}"; do
-            VERSION="${PRODUCTS[$PRODUCT]}"
-            echo "Triggering rebuild: $PRODUCT v$VERSION"
-            gh workflow run build-publish.yml \
-              -f product="$PRODUCT" \
-              -f version="$VERSION" \
-              -f push=true
-            # Small delay to avoid API rate limits
-            sleep 2
-          done
-
-          echo "All rebuilds triggered for CLI v${{ steps.cli.outputs.latest }}"
+          echo "Base rebuild triggered — derived images inherit updated CLI on next rebuild"

@@ -1,6 +1,10 @@
-ARG BASE_TAG="1.17.0"
+# Calliope Base Kasm Workspace
+# Base layer: Kasm desktop + Node.js + Calliope CLI + agent CLIs + shared Electron deps
+# All calliope-*-kasm products build FROM this image.
+
+ARG KASM_VERSION="1.17.0"
 ARG BASE_IMAGE="core-debian-bookworm"
-FROM kasmweb/${BASE_IMAGE}:${BASE_TAG}
+FROM kasmweb/${BASE_IMAGE}:${KASM_VERSION}
 
 USER root
 
@@ -11,17 +15,41 @@ WORKDIR $HOME
 
 ######### Customize Container Here ###########
 
-# Install Calliope CLI (Node.js + @calliopelabs/cli)
+# Shared Electron/app runtime dependencies (required by all derived products)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcups2 \
+    libdbus-1-3 \
+    libdrm2 \
+    libgbm1 \
+    libgtk-3-0 \
+    libnspr4 \
+    libnss3 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxfixes3 \
+    libxkbcommon0 \
+    libxrandr2 \
+    xdg-utils \
+    wget \
+    ca-certificates \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Calliope CLI (Node.js + @calliopelabs/cli + agent CLIs)
 COPY src/install_calliope_cli.sh $INST_SCRIPTS/calliope_cli/
 RUN chmod +x $INST_SCRIPTS/calliope_cli/install_calliope_cli.sh \
     && bash $INST_SCRIPTS/calliope_cli/install_calliope_cli.sh \
     && rm -rf $INST_SCRIPTS/calliope_cli/
 
-# Copy custom startup script (opens terminal)
+# Copy custom startup script (opens terminal — override in derived images)
 COPY src/base_startup.sh $STARTUPDIR/custom_startup.sh
 RUN chmod 755 $STARTUPDIR/custom_startup.sh
 
-# Set custom desktop background
+# Set custom desktop background (inherited by all derived images)
 COPY calliope-bg.svg /usr/share/backgrounds/calliope-bg.svg
 RUN mkdir -p /home/kasm-default-profile/.config/xfce4/xfconf/xfce-perchannel-xml && \
     echo '<?xml version="1.0" encoding="UTF-8"?>\n\
@@ -36,7 +64,7 @@ RUN mkdir -p /home/kasm-default-profile/.config/xfce4/xfconf/xfce-perchannel-xml
       </property>\n\
     </property>\n\
   </property>\n\
-</channel>\n' > /home/kasm-default-profile/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml && \
+</channel>' > /home/kasm-default-profile/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml && \
     chown -R 1000:1000 /home/kasm-default-profile/.config
 
 ######### End Customizations ###########

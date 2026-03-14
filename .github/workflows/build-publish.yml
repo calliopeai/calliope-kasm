@@ -90,6 +90,13 @@ jobs:
             *)      echo "ERROR: Unknown product: $PRODUCT" && exit 1 ;;
           esac
 
+          # Set build args based on product type
+          if [ "$PRODUCT" = "base" ]; then
+            echo "build_args=KASM_VERSION=${{ env.KASM_VERSION }}" >> $GITHUB_OUTPUT
+          else
+            echo "build_args=CALLIOPE_BASE_TAG=latest" >> $GITHUB_OUTPUT
+          fi
+
           echo "product=$PRODUCT" >> $GITHUB_OUTPUT
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "image_dockerhub=$IMAGE" >> $GITHUB_OUTPUT
@@ -125,7 +132,7 @@ jobs:
           push: ${{ github.event_name != 'workflow_dispatch' || inputs.push }}
           tags: ${{ env.REGISTRY_GHCR }}/${{ steps.config.outputs.image_ghcr }}:${{ steps.config.outputs.version }}-${{ matrix.suffix }}
           build-args: |
-            BASE_TAG=${{ env.KASM_VERSION }}
+            ${{ steps.config.outputs.build_args }}
             CALLIOPE_VERSION=${{ steps.config.outputs.version }}
           cache-from: type=gha,scope=${{ steps.config.outputs.product }}-${{ matrix.suffix }}
           cache-to: type=gha,mode=max,scope=${{ steps.config.outputs.product }}-${{ matrix.suffix }}
