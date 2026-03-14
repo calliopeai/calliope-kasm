@@ -93,6 +93,18 @@ jobs:
           # Set build args based on product type
           if [ "$PRODUCT" = "base" ]; then
             echo "build_args=KASM_VERSION=${{ env.KASM_VERSION }}" >> $GITHUB_OUTPUT
+          elif [ "$PRODUCT" = "suite" ]; then
+            # Suite gets per-component version overrides from dispatch payload
+            # Empty values cause Docker to use Dockerfile ARG defaults
+            {
+              echo "build_args<<EOF"
+              echo "CALLIOPE_BASE_TAG=latest"
+              echo "CALLIOPE_IDE_VERSION=${{ github.event.client_payload.ide_version }}"
+              echo "CALLIOPE_LAB_VERSION=${{ github.event.client_payload.lab_version }}"
+              echo "CALLIOPE_CHAT_VERSION=${{ github.event.client_payload.chat_version }}"
+              echo "CALLIOPE_LOADR_VERSION=${{ github.event.client_payload.loadr_version }}"
+              echo "EOF"
+            } >> $GITHUB_OUTPUT
           else
             echo "build_args=CALLIOPE_BASE_TAG=latest" >> $GITHUB_OUTPUT
           fi
