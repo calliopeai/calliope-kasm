@@ -95,14 +95,18 @@ jobs:
             echo "build_args=KASM_VERSION=${{ env.KASM_VERSION }}" >> $GITHUB_OUTPUT
           elif [ "$PRODUCT" = "suite" ]; then
             # Suite gets per-component version overrides from dispatch payload
-            # Empty values cause Docker to use Dockerfile ARG defaults
+            # Only pass non-empty values — empty args override Dockerfile ARG defaults
+            IDE_VER="${{ github.event.client_payload.ide_version }}"
+            LAB_VER="${{ github.event.client_payload.lab_version }}"
+            CHAT_VER="${{ github.event.client_payload.chat_version }}"
+            LOADR_VER="${{ github.event.client_payload.loadr_version }}"
             {
               echo "build_args<<EOF"
               echo "CALLIOPE_BASE_TAG=latest"
-              echo "CALLIOPE_IDE_VERSION=${{ github.event.client_payload.ide_version }}"
-              echo "CALLIOPE_LAB_VERSION=${{ github.event.client_payload.lab_version }}"
-              echo "CALLIOPE_CHAT_VERSION=${{ github.event.client_payload.chat_version }}"
-              echo "CALLIOPE_LOADR_VERSION=${{ github.event.client_payload.loadr_version }}"
+              if [ -n "$IDE_VER" ]; then echo "CALLIOPE_IDE_VERSION=$IDE_VER"; fi
+              if [ -n "$LAB_VER" ]; then echo "CALLIOPE_LAB_VERSION=$LAB_VER"; fi
+              if [ -n "$CHAT_VER" ]; then echo "CALLIOPE_CHAT_VERSION=$CHAT_VER"; fi
+              if [ -n "$LOADR_VER" ]; then echo "CALLIOPE_LOADR_VERSION=$LOADR_VER"; fi
               echo "EOF"
             } >> $GITHUB_OUTPUT
           else
