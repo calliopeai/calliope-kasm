@@ -4,26 +4,35 @@ set -ex
 # Chat Studio installation script for Kasm
 # Supports: linux/amd64, linux/arm64
 
-# Detect architecture (Chat Studio uses standard Debian arch names in .deb filenames)
+# Detect architecture
 ARCH=$(dpkg --print-architecture)
 echo "Detected architecture: ${ARCH}"
+
+# Chat Studio uses Electron builder arch names (x64, arm64) not Debian names (amd64, arm64)
+case "${ARCH}" in
+    amd64) RELEASE_ARCH="x64" ;;
+    arm64) RELEASE_ARCH="arm64" ;;
+    *)
+        echo "Unsupported architecture: ${ARCH}"
+        exit 1
+        ;;
+esac
 
 # Version to install (can be overridden via build arg)
 CALLIOPE_VERSION="${CALLIOPE_VERSION:-1.0.0}"
 
-# Chat Studio .deb filenames include a build version that may differ from the release tag.
 # Use the GitHub API to find the correct .deb URL for this architecture.
 RELEASE_URL="https://api.github.com/repos/calliopeai/calliope-ai-desktop-releases/releases/tags/chat-v${CALLIOPE_VERSION}"
 
-echo "Finding Chat Studio v${CALLIOPE_VERSION} .deb for ${ARCH}..."
+echo "Finding Chat Studio v${CALLIOPE_VERSION} .deb for ${RELEASE_ARCH}..."
 
 DEB_URL=$(wget -qO- "${RELEASE_URL}" \
-    | grep -o '"browser_download_url": "[^"]*linux-'"${ARCH}"'[^"]*\.deb"' \
+    | grep -o '"browser_download_url": "[^"]*linux-'"${RELEASE_ARCH}"'[^"]*\.deb"' \
     | head -1 \
     | cut -d'"' -f4)
 
 if [ -z "${DEB_URL}" ]; then
-    echo "ERROR: No .deb found for ${ARCH} in chat-v${CALLIOPE_VERSION} release"
+    echo "ERROR: No .deb found for ${RELEASE_ARCH} in chat-v${CALLIOPE_VERSION} release"
     echo "Release URL: ${RELEASE_URL}"
     exit 1
 fi
