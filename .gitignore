@@ -2,6 +2,7 @@
 *.deb
 *.tar.gz
 *.AppImage
+cli.env
 
 # Docker
 .docker/
