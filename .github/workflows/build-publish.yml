@@ -37,7 +37,7 @@ on:
 env:
   REGISTRY_DOCKERHUB: docker.io
   REGISTRY_GHCR: ghcr.io
-  KASM_VERSION: '1.19.0'
+  KASM_VERSION: '1.18.0'
 
 jobs:
   build:
