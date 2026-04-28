@@ -2,7 +2,7 @@
 # Base layer: Kasm desktop + Node.js + Calliope CLI + agent CLIs + shared Electron deps
 # All calliope-*-kasm products build FROM this image.
 
-ARG KASM_VERSION="1.17.0"
+ARG KASM_VERSION="1.19.0"
 ARG BASE_IMAGE="core-debian-bookworm"
 FROM kasmweb/${BASE_IMAGE}:${KASM_VERSION}
 
