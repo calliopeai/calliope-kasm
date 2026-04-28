@@ -5,7 +5,7 @@
 
 PRODUCT := base
 REGISTRY := ghcr.io/calliopeai
-KASM_VERSION := 1.17.0
+KASM_VERSION := 1.19.0
 
 # Product-specific image names and default versions
 ifeq ($(PRODUCT),base)
