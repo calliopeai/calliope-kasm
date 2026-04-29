@@ -46,7 +46,7 @@ Access at `https://localhost:6901` (user: `kasm_user`, password: `password`)
 
 ## Base Image
 
-Built on `kasmweb/core-debian-bookworm:1.17.0` providing:
+Built on `kasmweb/core-debian-bookworm:1.19.0` providing:
 - Debian 12 (Bookworm)
 - XFCE4 desktop environment
 - KasmVNC for browser access
