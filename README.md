@@ -129,7 +129,7 @@ Images are published as multi-arch manifests - Docker automatically pulls the co
 
 ## Base Image
 
-Built on [`kasmweb/core-debian-bookworm:1.17.0`](https://hub.docker.com/r/kasmweb/core-debian-bookworm) providing:
+Built on [`kasmweb/core-debian-bookworm:1.19.0`](https://hub.docker.com/r/kasmweb/core-debian-bookworm) providing:
 
 - Debian 12 (Bookworm)
 - XFCE4 desktop environment
