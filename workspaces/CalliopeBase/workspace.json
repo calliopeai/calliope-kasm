@@ -23,14 +23,20 @@
   ],
   "compatibility": [
     {
-      "version": "1.17.x",
+      "version": "1.18.x",
       "image": "calliopeai/calliope-base-kasm:latest",
       "uncompressed_size_mb": 1500
     },
     {
-      "version": "1.18.x",
-      "image": "calliopeai/calliope-base-kasm:latest",
-      "uncompressed_size_mb": 1500
+      "version": "1.19.x",
+      "image": "calliopeai/calliope-base-kasm:develop",
+      "uncompressed_size_mb": 0,
+      "available_tags": [
+        "develop",
+        "1.19.0",
+        "1.19.0-rolling-weekly",
+        "1.19.0-rolling-daily"
+      ]
     }
   ]
 }

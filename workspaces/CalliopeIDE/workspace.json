@@ -23,14 +23,20 @@
   ],
   "compatibility": [
     {
-      "version": "1.17.x",
+      "version": "1.18.x",
       "image": "calliopeai/calliope-ide-4kasm:latest",
       "uncompressed_size_mb": 3000
     },
     {
-      "version": "1.18.x",
-      "image": "calliopeai/calliope-ide-4kasm:latest",
-      "uncompressed_size_mb": 3000
+      "version": "1.19.x",
+      "image": "calliopeai/calliope-ide-4kasm:develop",
+      "uncompressed_size_mb": 0,
+      "available_tags": [
+        "develop",
+        "1.19.0",
+        "1.19.0-rolling-weekly",
+        "1.19.0-rolling-daily"
+      ]
     }
   ]
 }
