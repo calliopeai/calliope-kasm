@@ -67,7 +67,7 @@ else
     cat > /usr/share/applications/loadr-desktop.desktop <<DESKTOP
 [Desktop Entry]
 Name=Loadr
-Exec=loadr-desktop --no-sandbox %F
+Exec=loadr-desktop --no-sandbox --password-store=basic %F
 Icon=loadr-desktop
 Type=Application
 Categories=Development;
@@ -88,9 +88,13 @@ if [ -n "${DESKTOP_FILE}" ]; then
     chmod +x $HOME/Desktop/*.desktop
     chown 1000:1000 $HOME/Desktop/*.desktop
 
-    # Ensure --no-sandbox is set (may already be set for AppImage installs)
-    grep -q "\-\-no-sandbox" "${DESKTOP_FILE}" || sed -i '/^Exec=/s/$/ --no-sandbox/' "${DESKTOP_FILE}"
-    grep -q "\-\-no-sandbox" $HOME/Desktop/*.desktop || sed -i '/^Exec=/s/$/ --no-sandbox/' $HOME/Desktop/*.desktop
+    # Ensure container-friendly flags are set:
+    #   --no-sandbox          : Electron requires this when running as root in containers
+    #   --password-store=basic: no gnome-keyring/libsecret backend; use plaintext store
+    grep -q -- "--no-sandbox" "${DESKTOP_FILE}" || sed -i '/^Exec=/s/$/ --no-sandbox/' "${DESKTOP_FILE}"
+    grep -q -- "--password-store=basic" "${DESKTOP_FILE}" || sed -i '/^Exec=/s/$/ --password-store=basic/' "${DESKTOP_FILE}"
+    grep -q -- "--no-sandbox" $HOME/Desktop/*.desktop || sed -i '/^Exec=/s/$/ --no-sandbox/' $HOME/Desktop/*.desktop
+    grep -q -- "--password-store=basic" $HOME/Desktop/*.desktop || sed -i '/^Exec=/s/$/ --password-store=basic/' $HOME/Desktop/*.desktop
 fi
 
 echo "Loadr v${CALLIOPE_VERSION} installed successfully"

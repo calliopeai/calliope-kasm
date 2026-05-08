@@ -54,9 +54,11 @@ if [ -n "${DESKTOP_FILE}" ]; then
     chmod +x $HOME/Desktop/*.desktop
     chown 1000:1000 $HOME/Desktop/*.desktop
 
-    # Modify for container environment (Electron needs --no-sandbox)
-    sed -i '/^Exec=/s/$/ --no-sandbox/' "${DESKTOP_FILE}"
-    sed -i '/^Exec=/s/$/ --no-sandbox/' $HOME/Desktop/*.desktop
+    # Modify for container environment:
+    #   --no-sandbox          : Electron requires this when running as root in containers
+    #   --password-store=basic: no gnome-keyring/libsecret backend; use plaintext store
+    sed -i '/^Exec=/s/$/ --no-sandbox --password-store=basic/' "${DESKTOP_FILE}"
+    sed -i '/^Exec=/s/$/ --no-sandbox --password-store=basic/' $HOME/Desktop/*.desktop
 fi
 
 echo "Chat Studio v${CALLIOPE_VERSION} installed successfully"

@@ -51,10 +51,11 @@ if [ -n "${CALLIOPE_DESKTOP}" ]; then
     chmod +x $HOME/Desktop/*.desktop
     chown 1000:1000 $HOME/Desktop/*.desktop
 
-    # Modify for container environment (Electron needs --no-sandbox)
-    # Append --no-sandbox to Exec line (handles paths with spaces)
-    sed -i '/^Exec=/s/$/ --no-sandbox/' "${CALLIOPE_DESKTOP}"
-    sed -i '/^Exec=/s/$/ --no-sandbox/' $HOME/Desktop/*.desktop
+    # Modify for container environment:
+    #   --no-sandbox          : Electron requires this when running as root in containers
+    #   --password-store=basic: no gnome-keyring/libsecret backend; use plaintext store
+    sed -i '/^Exec=/s/$/ --no-sandbox --password-store=basic/' "${CALLIOPE_DESKTOP}"
+    sed -i '/^Exec=/s/$/ --no-sandbox --password-store=basic/' $HOME/Desktop/*.desktop
 fi
 
 echo "Calliope AI IDE v${CALLIOPE_VERSION} installed successfully"

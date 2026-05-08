@@ -44,15 +44,15 @@ RUN DESKTOP_FILE=$(find /usr/share/applications -name "*calliope*" -type f | hea
         cp "$DESKTOP_FILE" $HOME/Desktop/ && \
         chmod +x $HOME/Desktop/*.desktop && \
         chown 1000:1000 $HOME/Desktop/*.desktop && \
-        sed -i '/^Exec=/s/$/ --no-sandbox/' "$DESKTOP_FILE" && \
-        sed -i '/^Exec=/s/$/ --no-sandbox/' $HOME/Desktop/*.desktop; \
+        sed -i '/^Exec=/s/$/ --no-sandbox --password-store=basic/' "$DESKTOP_FILE" && \
+        sed -i '/^Exec=/s/$/ --no-sandbox --password-store=basic/' $HOME/Desktop/*.desktop; \
     fi
 
 # Custom startup script
 RUN echo '#!/bin/bash\n\
 set -e\n\
 /usr/bin/desktop_ready\n\
-calliope-lab --no-sandbox &\n\
+calliope-lab --no-sandbox --password-store=basic &\n\
 ' > $STARTUPDIR/custom_startup.sh && chmod 755 $STARTUPDIR/custom_startup.sh
 
 ######### End Customizations ###########
