@@ -29,14 +29,8 @@
     },
     {
       "version": "1.19.x",
-      "image": "calliopeai/calliope-desktop-suite-kasm:develop",
-      "uncompressed_size_mb": 0,
-      "available_tags": [
-        "develop",
-        "1.19.0",
-        "1.19.0-rolling-weekly",
-        "1.19.0-rolling-daily"
-      ]
+      "image": "calliopeai/calliope-desktop-suite-kasm:latest",
+      "uncompressed_size_mb": 6000
     }
   ]
 }

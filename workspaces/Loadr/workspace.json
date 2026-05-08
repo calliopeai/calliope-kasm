@@ -30,14 +30,8 @@
     },
     {
       "version": "1.19.x",
-      "image": "calliopeai/calliope-loadr-kasm:develop",
-      "uncompressed_size_mb": 0,
-      "available_tags": [
-        "develop",
-        "1.19.0",
-        "1.19.0-rolling-weekly",
-        "1.19.0-rolling-daily"
-      ]
+      "image": "calliopeai/calliope-loadr-kasm:latest",
+      "uncompressed_size_mb": 2500
     }
   ]
 }
