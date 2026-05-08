@@ -4,7 +4,7 @@ set -ex
 # Chat Studio startup script for Kasm
 # This script runs when a Kasm session starts
 
-ARGS="--no-sandbox"
+ARGS="--no-sandbox --password-store=basic"
 
 # Find the binary
 if command -v chat-studio &> /dev/null; then

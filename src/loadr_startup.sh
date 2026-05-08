@@ -4,7 +4,7 @@ set -ex
 # Loadr startup script for Kasm
 # This script runs when a Kasm session starts
 
-ARGS="--no-sandbox"
+ARGS="--no-sandbox --password-store=basic"
 
 # Find the binary (check .deb install paths and AppImage extract path)
 if command -v loadr-desktop &> /dev/null; then

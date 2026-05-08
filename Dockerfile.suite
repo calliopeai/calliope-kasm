@@ -53,8 +53,8 @@ RUN DESKTOP_FILE=$(find /usr/share/applications -name "*calliope-lab*" -type f |
         cp "$DESKTOP_FILE" $HOME/Desktop/ && \
         chmod +x $HOME/Desktop/$(basename "$DESKTOP_FILE") && \
         chown 1000:1000 $HOME/Desktop/$(basename "$DESKTOP_FILE") && \
-        sed -i '/^Exec=/s/$/ --no-sandbox/' "$DESKTOP_FILE" && \
-        sed -i '/^Exec=/s/$/ --no-sandbox/' "$HOME/Desktop/$(basename "$DESKTOP_FILE")"; \
+        sed -i '/^Exec=/s/$/ --no-sandbox --password-store=basic/' "$DESKTOP_FILE" && \
+        sed -i '/^Exec=/s/$/ --no-sandbox --password-store=basic/' "$HOME/Desktop/$(basename "$DESKTOP_FILE")"; \
     fi
 
 # Install Chat Studio
