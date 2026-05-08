@@ -37,13 +37,33 @@ Access the running container at `https://localhost:6901` with username `kasm_use
 
 See the [Makefile](Makefile) for all available targets.
 
+## Branches
+
+This repo has two long-lived branches that must be kept in sync:
+
+- **`1.1`** is the **default branch** and the source of truth for production deploys. The Kasm Workspaces registry that customers add (built by `.github/workflows/registry-deploy.yml`) is generated from `1.1`. **All fixes intended for production must land on `1.1`.**
+- **`main`** mirrors `1.1` and is kept identical via merge or parallel commits. It exists for legacy/tooling reasons; do not commit there exclusively.
+
+If you commit only to `main`, your change will not ship — Kasm pulls workspaces from the registry built from `1.1`, and tag-triggered CI also evaluates relative to the default branch. When in doubt:
+
+```bash
+git rev-parse --abbrev-ref HEAD               # confirm you're on 1.1
+gh api repos/calliopeai/calliope-kasm --jq .default_branch  # confirms default is 1.1
+```
+
+To keep both branches in sync after work on `1.1`:
+
+```bash
+git checkout main && git merge --ff-only 1.1 && git push origin main
+```
+
 ## Pull Requests
 
 1. Fork the repository
-2. Create a branch from `main` (`git checkout -b my-change`)
+2. Create a branch from `1.1` (`git checkout 1.1 && git checkout -b my-change`)
 3. Make your changes
 4. Test locally with `make test PRODUCT=<affected-product>`
-5. Push and open a pull request
+5. Push and open a pull request **targeting `1.1`**
 
 ### Guidelines
 
