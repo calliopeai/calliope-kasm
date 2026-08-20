@@ -19,3 +19,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+SCOPE
+
+The MIT license above covers the contents of this repository: the Dockerfiles,
+scripts, and configuration that run Calliope AI desktop applications in Kasm
+Workspaces.
+
+It does not cover those applications. The images built here bundle the Calliope
+AI desktop applications, which are proprietary, free to use, and licensed
+separately; see the LICENSE in calliopeai/calliope-ai-desktop-releases. An MIT
+wrapper does not relicense its payload.
+
+So: fork this repository, change it, redistribute it. Redistributing the built
+images, which contain the applications, needs permission under the desktop
+license instead.
