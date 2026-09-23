@@ -1,3 +1,2 @@
 1.1
-fix_chat-deb-amd64
 main
