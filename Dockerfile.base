@@ -41,6 +41,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Install Calliope CLI (Node.js + @calliopelabs/cli + agent CLIs)
 COPY src/install_calliope_cli.sh $INST_SCRIPTS/calliope_cli/
+COPY .cli-version $INST_SCRIPTS/calliope_cli/cli-version
 RUN chmod +x $INST_SCRIPTS/calliope_cli/install_calliope_cli.sh \
     && bash $INST_SCRIPTS/calliope_cli/install_calliope_cli.sh \
     && rm -rf $INST_SCRIPTS/calliope_cli/
