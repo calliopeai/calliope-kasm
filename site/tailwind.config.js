@@ -23,8 +23,9 @@ module.exports = {
           hover: 'rgb(var(--kasm-hover) / <alpha-value>)',
         },
       },
+      // The Workbench brand's face, from the @calliopelabs/ui tokens (calliope/tokens.css).
       fontFamily: {
-        sans: ['var(--kasm-font-sans)'],
+        sans: ['var(--brand-font-sans)'],
       },
     },
   },

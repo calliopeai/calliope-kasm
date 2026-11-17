@@ -400,6 +400,16 @@
   --radius: 10px;
 }
 
+/* Corners: 6px */
+[data-corners="6"] {
+  --radius: 6px;
+}
+
+/* Corners: 8px */
+[data-corners="8"] {
+  --radius: 8px;
+}
+
 /* Product: Astrolift AI */
 [data-product="astrolift"] {
   --brand-sidebar: #04231a;
@@ -422,6 +432,14 @@
   --brand-on-primary: #f3fbf7;
 }
 
+/* Look: Zentinelle AI */
+[data-product="zentinelle"],
+[data-product="zentinelle"] [data-mode] {
+  --brand-font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --brand-font-head: ui-sans-serif, system-ui, sans-serif;
+  --brand-font-mono: ui-monospace, "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace;
+}
+
 /* Product: Calliope AI Workbench */
 [data-product="workbench"] {
   --brand-sidebar: #0e1730;
@@ -437,6 +455,24 @@
 [data-mode="light"][data-accent="workbench-blue"] {
   --brand-primary: #2f5d94;
   --brand-on-primary: #f3fbf7;
+}
+
+/* Look: Calliope AI Workbench */
+[data-product="workbench"],
+[data-product="workbench"] [data-mode] {
+  --brand-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  --brand-font-head: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  --brand-font-mono: "Monaco", "Consolas", "Courier New", monospace;
+  --brand-font-size: 16px;
+  --brand-card-radius-offset: 4px;
+  --brand-control-height: 38px;
+  --brand-shadow-popover: 0px 8px 32px 0px #0000004d;
+  --brand-pill-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  --brand-pill-case: uppercase;
+  --brand-tab-bar: none;
+  --brand-tab-fill: var(--accent);
+  --brand-tab-rule: 0px;
+  --brand-tab-radius: var(--radius);
 }
 
 /* Product: Calliope AI Chat Studio */
@@ -456,6 +492,116 @@
   --brand-on-primary: #ffffff;
 }
 
+/* Look: Calliope AI Chat Studio */
+[data-product="chat-studio"],
+[data-product="chat-studio"] [data-mode] {
+  --brand-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif;
+  --brand-font-head: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif;
+  --brand-font-mono: ui-monospace, "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace;
+  --brand-font-size: 13px;
+  --brand-control-radius-offset: -2px;
+  --brand-shadow-control: 0px 1px 3px 0px #0000001a, 0px 1px 2px -1px #0000001a;
+  --brand-status-glow: 0 0 #0000;
+  --brand-status-dot: none;
+  --brand-pill-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif;
+  --brand-button-bg: var(--foreground);
+  --brand-button-fg: var(--background);
+}
+
+/* Status: Calliope AI Chat Studio (dark) */
+[data-product="chat-studio"][data-mode="dark"],
+[data-product="chat-studio"] [data-mode="dark"] {
+  --success: #4ade80;
+  --success-fg: #4ade80;
+  --success-bg: rgba(74, 222, 128, 0.1);
+  --success-border: rgba(74, 222, 128, 0.4);
+  --warning: #facc15;
+  --warning-fg: #facc15;
+  --warning-bg: rgba(250, 204, 21, 0.1);
+  --warning-border: rgba(250, 204, 21, 0.4);
+  --info: #8ab4f8;
+  --info-fg: #8ab4f8;
+  --info-bg: rgba(138, 180, 248, 0.1);
+  --info-border: rgba(138, 180, 248, 0.4);
+  --danger: #f87171;
+  --danger-fg: #f87171;
+  --danger-bg: rgba(248, 113, 113, 0.1);
+  --danger-border: rgba(248, 113, 113, 0.4);
+  --destructive: #f87171;
+}
+
+/* Status: Calliope AI Chat Studio (light) */
+[data-product="chat-studio"][data-mode="light"],
+[data-product="chat-studio"] [data-mode="light"] {
+  --success: #166534;
+  --success-fg: #166534;
+  --success-bg: rgba(22, 101, 52, 0.1);
+  --success-border: rgba(22, 101, 52, 0.4);
+  --warning: #854d0e;
+  --warning-fg: #854d0e;
+  --warning-bg: rgba(133, 77, 14, 0.1);
+  --warning-border: rgba(133, 77, 14, 0.4);
+  --info: #1d4ed8;
+  --info-fg: #1d4ed8;
+  --info-bg: rgba(29, 78, 216, 0.1);
+  --info-border: rgba(29, 78, 216, 0.4);
+  --danger: #b91c1c;
+  --danger-fg: #b91c1c;
+  --danger-bg: rgba(185, 28, 28, 0.1);
+  --danger-border: rgba(185, 28, 28, 0.4);
+  --destructive: #b91c1c;
+}
+
+/* Ground: Studio dark (Calliope AI Chat Studio, dark) */
+[data-mode="dark"][data-ground="chat-studio-dark"] {
+  --background: #0c0c0c;
+  --card: #0c0c0c;
+  --popover: #141414;
+  --secondary: #1a1a1a;
+  --muted: #1a1a1a;
+  --accent: #262626;
+  --muted-foreground: #a6adc8;
+  --border: #2a2a2a;
+  --input: #2a2a2a;
+  --sidebar: #080808;
+  --sidebar-foreground: #f0f2f1;
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-muted-foreground: #a6adc8;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-border: #222222;
+  --foreground: #cdd6f4;
+  --card-foreground: #cdd6f4;
+  --popover-foreground: #cdd6f4;
+  --secondary-foreground: #cdd6f4;
+  --accent-foreground: #cdd6f4;
+  --sidebar-accent-foreground: #cdd6f4;
+}
+
+/* Ground: Studio light (Calliope AI Chat Studio, light) */
+[data-mode="light"][data-ground="chat-studio-light"] {
+  --background: #ffffff;
+  --card: #ffffff;
+  --popover: #ffffff;
+  --secondary: #f2f2f7;
+  --muted: #f2f2f7;
+  --accent: #e9e9f0;
+  --muted-foreground: #5f6070;
+  --border: #e2e2ea;
+  --input: #d9d9e2;
+  --sidebar: var(--brand-sidebar-light, #f7f7fb);
+  --sidebar-foreground: var(--brand-sidebar-foreground, #1e1d1b);
+  --sidebar-primary: var(--brand-sidebar-primary, var(--brand-primary));
+  --sidebar-muted-foreground: var(--brand-sidebar-muted-foreground, #5f6070);
+  --sidebar-accent: var(--brand-sidebar-accent, #e9e9f0);
+  --sidebar-border: var(--brand-sidebar-border, #e2e2ea);
+  --foreground: #1a1a2e;
+  --card-foreground: #1a1a2e;
+  --popover-foreground: #1a1a2e;
+  --secondary-foreground: #1a1a2e;
+  --accent-foreground: #1a1a2e;
+  --sidebar-accent-foreground: #1a1a2e;
+}
+
 /* Product: Calliope AI Loadr */
 [data-product="loadr"] {
   --brand-sidebar: #181825;
@@ -471,6 +617,116 @@
 [data-mode="light"][data-accent="loadr-blue"] {
   --brand-primary: #1e66f5;
   --brand-on-primary: #ffffff;
+  --ring: #1c5fe6;
+  --sidebar-ring: #1c5fe6;
+  --brand-link: #1c5fe6;
+}
+
+/* Look: Calliope AI Loadr */
+[data-product="loadr"],
+[data-product="loadr"] [data-mode] {
+  --brand-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif;
+  --brand-font-head: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif;
+  --brand-font-mono: ui-monospace, "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace;
+  --brand-font-size: 13px;
+  --brand-control-radius-offset: -2px;
+  --brand-shadow-control: 0px 1px 3px 0px #0000001a, 0px 1px 2px -1px #0000001a;
+  --brand-status-glow: 0 0 #0000;
+  --brand-pill-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif;
+}
+
+/* Status: Calliope AI Loadr (dark) */
+[data-product="loadr"][data-mode="dark"],
+[data-product="loadr"] [data-mode="dark"] {
+  --success: #a6e3a1;
+  --success-fg: #a6e3a1;
+  --success-bg: rgba(166, 227, 161, 0.14);
+  --success-border: rgba(166, 227, 161, 0.4);
+  --warning: #f9e2af;
+  --warning-fg: #f9e2af;
+  --warning-bg: rgba(249, 226, 175, 0.14);
+  --warning-border: rgba(249, 226, 175, 0.4);
+  --info: #74c7ec;
+  --info-fg: #74c7ec;
+  --info-bg: rgba(116, 199, 236, 0.14);
+  --info-border: rgba(116, 199, 236, 0.4);
+  --danger: #f38ba8;
+  --danger-fg: #f38ba8;
+  --danger-bg: rgba(243, 139, 168, 0.14);
+  --danger-border: rgba(243, 139, 168, 0.4);
+  --destructive: #f38ba8;
+}
+
+/* Status: Calliope AI Loadr (light) */
+[data-product="loadr"][data-mode="light"],
+[data-product="loadr"] [data-mode="light"] {
+  --success: #3f9e2a;
+  --success-fg: #296d1a;
+  --success-bg: rgba(63, 158, 42, 0.14);
+  --success-border: rgba(63, 158, 42, 0.4);
+  --warning: #c37b18;
+  --warning-fg: #87540d;
+  --warning-bg: rgba(195, 123, 24, 0.14);
+  --warning-border: rgba(195, 123, 24, 0.4);
+  --info: #1e98ae;
+  --info-fg: #126978;
+  --info-bg: rgba(30, 152, 174, 0.14);
+  --info-border: rgba(30, 152, 174, 0.4);
+  --danger: #d20f39;
+  --danger-fg: #b20b2f;
+  --danger-bg: rgba(210, 15, 57, 0.14);
+  --danger-border: rgba(210, 15, 57, 0.4);
+  --destructive: #d20f39;
+}
+
+/* Ground: Mocha (Calliope AI Loadr, dark) */
+[data-mode="dark"][data-ground="loadr-mocha"] {
+  --background: #1e1e2e;
+  --card: #181825;
+  --popover: #181825;
+  --secondary: #181825;
+  --muted: #181825;
+  --accent: #313244;
+  --muted-foreground: #a6adc8;
+  --border: #313244;
+  --input: #313244;
+  --sidebar: #181825;
+  --sidebar-foreground: #f0f2f1;
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-muted-foreground: #a6adc8;
+  --sidebar-accent: #313244;
+  --sidebar-border: #313244;
+  --foreground: #cdd6f4;
+  --card-foreground: #cdd6f4;
+  --popover-foreground: #cdd6f4;
+  --secondary-foreground: #cdd6f4;
+  --accent-foreground: #cdd6f4;
+  --sidebar-accent-foreground: #cdd6f4;
+}
+
+/* Ground: Latte (Calliope AI Loadr, light) */
+[data-mode="light"][data-ground="loadr-latte"] {
+  --background: #eff1f5;
+  --card: #e6e9ef;
+  --popover: #ffffff;
+  --secondary: #e6e9ef;
+  --muted: #e6e9ef;
+  --accent: #dce0e8;
+  --muted-foreground: #5c5f77;
+  --border: #ccd0da;
+  --input: #ccd0da;
+  --sidebar: var(--brand-sidebar-light, #e6e9ef);
+  --sidebar-foreground: var(--brand-sidebar-foreground, #1e1d1b);
+  --sidebar-primary: var(--brand-sidebar-primary, var(--brand-primary));
+  --sidebar-muted-foreground: var(--brand-sidebar-muted-foreground, #5c5f77);
+  --sidebar-accent: var(--brand-sidebar-accent, #dce0e8);
+  --sidebar-border: var(--brand-sidebar-border, #ccd0da);
+  --foreground: #4c4f69;
+  --card-foreground: #4c4f69;
+  --popover-foreground: #4c4f69;
+  --secondary-foreground: #4c4f69;
+  --accent-foreground: #4c4f69;
+  --sidebar-accent-foreground: #4c4f69;
 }
 
 /* Product: Cykick */
@@ -481,18 +737,236 @@
 /* Accent: Cykick cyan (Cykick, dark) */
 [data-mode="dark"][data-accent="cykick-cyan"] {
   --brand-primary: #22d3ee;
-  --brand-on-primary: #07090e;
+  --brand-on-primary: #071119;
 }
 
 /* Accent: Cykick cyan (Cykick, light) */
 [data-mode="light"][data-accent="cykick-cyan"] {
-  --brand-primary: #0e7490;
+  --brand-primary: #137483;
   --brand-on-primary: #ffffff;
+}
+
+/* Look: Cykick */
+[data-product="cykick"],
+[data-product="cykick"] [data-mode] {
+  --brand-font-sans: ui-sans-serif, -apple-system, "Segoe UI", "Inter", system-ui, sans-serif;
+  --brand-font-head: ui-monospace, "SF Mono", "JetBrains Mono", "Menlo", monospace;
+  --brand-font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Menlo", monospace;
+  --brand-tracking: -0.005em;
+  --brand-head-tracking: 0.06em;
+  --brand-control-height: 36px;
+  --brand-shadow-card: inset 0px 0px 0px 1px #9fd3e31a;
+  --brand-shadow-popover: 0px 8px 32px 0px #00000066;
+  --brand-focus-width: 2px;
+  --brand-focus-alpha: 100%;
+  --brand-focus-offset: 2px;
+  --brand-focus-gap: 0 0 0 2px var(--background);
+}
+
+/* Status: Cykick (dark) */
+[data-product="cykick"][data-mode="dark"],
+[data-product="cykick"] [data-mode="dark"] {
+  --success: #6cd7bf;
+  --success-fg: #6cd7bf;
+  --success-bg: rgba(108, 215, 191, 0.1);
+  --success-border: rgba(108, 215, 191, 0.35);
+  --warning: #efbb64;
+  --warning-fg: #efbb64;
+  --warning-bg: rgba(239, 187, 100, 0.1);
+  --warning-border: rgba(239, 187, 100, 0.35);
+  --danger: #ffb4a8;
+  --danger-fg: #ffb4a8;
+  --danger-bg: rgba(255, 180, 168, 0.1);
+  --danger-border: rgba(255, 180, 168, 0.35);
+  --destructive: #ffb4a8;
+}
+
+/* Status: Cykick (light) */
+[data-product="cykick"][data-mode="light"],
+[data-product="cykick"] [data-mode="light"] {
+  --success: #006e61;
+  --success-fg: #006a5e;
+  --success-bg: rgba(0, 110, 97, 0.1);
+  --success-border: rgba(0, 110, 97, 0.35);
+  --warning: #805400;
+  --warning-fg: #805400;
+  --warning-bg: rgba(128, 84, 0, 0.1);
+  --warning-border: rgba(128, 84, 0, 0.35);
+  --danger: #a31934;
+  --danger-fg: #a31934;
+  --danger-bg: rgba(163, 25, 52, 0.1);
+  --danger-border: rgba(163, 25, 52, 0.35);
+  --destructive: #a31934;
+}
+
+/* Ground: Night (Cykick, dark) */
+[data-mode="dark"][data-ground="cykick-night"] {
+  --background: #07090e;
+  --card: #0f1319;
+  --popover: #0f1319;
+  --secondary: #0f1319;
+  --muted: #0f1319;
+  --accent: #161d23;
+  --muted-foreground: #7ea7b4;
+  --border: #6a8c98;
+  --input: #6a8c98;
+  --sidebar: #07090e;
+  --sidebar-foreground: #f0f2f1;
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-muted-foreground: #7ea7b4;
+  --sidebar-accent: #0b2932;
+  --sidebar-border: #6a8c98;
+  --foreground: #9fd3e3;
+  --card-foreground: #9fd3e3;
+  --popover-foreground: #9fd3e3;
+  --secondary-foreground: #9fd3e3;
+  --accent-foreground: #9fd3e3;
+  --sidebar-accent-foreground: #9fd3e3;
+}
+
+/* Ground: Day (Cykick, light) */
+[data-mode="light"][data-ground="cykick-day"] {
+  --background: #f5f8fa;
+  --card: #eaeef1;
+  --popover: #eaeef1;
+  --secondary: #eaeef1;
+  --muted: #eaeef1;
+  --accent: #e4e9eb;
+  --muted-foreground: #4f626b;
+  --border: #6b7b83;
+  --input: #6b7b83;
+  --sidebar: var(--brand-sidebar-light, #f5f8fa);
+  --sidebar-foreground: var(--brand-sidebar-foreground, #1e1d1b);
+  --sidebar-primary: var(--brand-sidebar-primary, var(--brand-primary));
+  --sidebar-muted-foreground: var(--brand-sidebar-muted-foreground, #4f626b);
+  --sidebar-accent: var(--brand-sidebar-accent, #dae8ec);
+  --sidebar-border: var(--brand-sidebar-border, #6b7b83);
+  --foreground: #203843;
+  --card-foreground: #203843;
+  --popover-foreground: #203843;
+  --secondary-foreground: #203843;
+  --accent-foreground: #203843;
+  --sidebar-accent-foreground: #203843;
 }
 
 /* Product: Deep Data Agent */
 [data-product="deep-data-agent"] {
-  --brand-sidebar: #1a150c;
+  --brand-sidebar: #18181b;
+}
+
+/* Accent: Zinc (Deep Data Agent, dark) */
+[data-mode="dark"][data-accent="zinc"] {
+  --brand-primary: #e4e4e7;
+  --brand-on-primary: #18181b;
+}
+
+/* Accent: Zinc (Deep Data Agent, light) */
+[data-mode="light"][data-accent="zinc"] {
+  --brand-primary: #18181b;
+  --brand-on-primary: #fafafa;
+}
+
+/* Look: Deep Data Agent */
+[data-product="deep-data-agent"],
+[data-product="deep-data-agent"] [data-mode] {
+  --brand-font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --brand-font-head: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --brand-font-mono: "Geist Mono", ui-monospace, monospace;
+  --brand-control-radius-offset: -2px;
+  --brand-bubble-radius: 24px;
+  --brand-control-height: 36px;
+  --brand-shadow-card: 0px 1px 3px 0px #0000001a, 0px 1px 2px -1px #0000001a;
+  --brand-shadow-control: 0px 1px 2px 0px #0000000d;
+  --brand-shadow-composer: 0px 9px 9px 0px #00000003, 0px 2px 5px 0px #0000000f;
+  --brand-status-glow: 0 0 #0000;
+  --brand-pill-font: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --brand-pill-case: uppercase;
+}
+
+/* Status: Deep Data Agent (dark) */
+[data-product="deep-data-agent"][data-mode="dark"],
+[data-product="deep-data-agent"] [data-mode="dark"] {
+  --success: #00bc7d;
+  --success-fg: #00d492;
+  --success-bg: rgba(0, 188, 125, 0.1);
+  --success-border: rgba(0, 188, 125, 0.35);
+  --warning: #fe9a00;
+  --warning-fg: #ffb900;
+  --warning-bg: rgba(254, 154, 0, 0.1);
+  --warning-border: rgba(254, 154, 0, 0.35);
+  --danger: #ff6467;
+  --danger-fg: #ff6467;
+  --danger-bg: rgba(255, 100, 103, 0.1);
+  --danger-border: rgba(255, 100, 103, 0.35);
+  --destructive: #ff6467;
+}
+
+/* Status: Deep Data Agent (light) */
+[data-product="deep-data-agent"][data-mode="light"],
+[data-product="deep-data-agent"] [data-mode="light"] {
+  --success: #009966;
+  --success-fg: #007451;
+  --success-bg: rgba(0, 153, 102, 0.1);
+  --success-border: rgba(0, 153, 102, 0.35);
+  --warning: #df7000;
+  --warning-fg: #973c00;
+  --warning-bg: rgba(223, 112, 0, 0.1);
+  --warning-border: rgba(223, 112, 0, 0.35);
+  --danger: #e7000b;
+  --danger-fg: #c10007;
+  --danger-bg: rgba(231, 0, 11, 0.1);
+  --danger-border: rgba(231, 0, 11, 0.35);
+  --destructive: #e7000b;
+}
+
+/* Ground: Zinc (Deep Data Agent, dark) */
+[data-mode="dark"][data-ground="deep-data-agent-zinc-dark"] {
+  --background: #09090b;
+  --card: #18181b;
+  --popover: #18181b;
+  --secondary: #27272a;
+  --muted: #27272a;
+  --accent: #27272a;
+  --muted-foreground: #9f9fa9;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --sidebar: #18181b;
+  --sidebar-foreground: #f0f2f1;
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-muted-foreground: #9f9fa9;
+  --sidebar-accent: #27272a;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --foreground: #fafafa;
+  --card-foreground: #fafafa;
+  --popover-foreground: #fafafa;
+  --secondary-foreground: #fafafa;
+  --accent-foreground: #fafafa;
+  --sidebar-accent-foreground: #fafafa;
+}
+
+/* Ground: Zinc light (Deep Data Agent, light) */
+[data-mode="light"][data-ground="deep-data-agent-zinc-light"] {
+  --background: #ffffff;
+  --card: #ffffff;
+  --popover: #ffffff;
+  --secondary: #f4f4f5;
+  --muted: #f4f4f5;
+  --accent: #f4f4f5;
+  --muted-foreground: #6e6e78;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --sidebar: var(--brand-sidebar-light, #fafafa);
+  --sidebar-foreground: var(--brand-sidebar-foreground, #1e1d1b);
+  --sidebar-primary: var(--brand-sidebar-primary, var(--brand-primary));
+  --sidebar-muted-foreground: var(--brand-sidebar-muted-foreground, #6e6e78);
+  --sidebar-accent: var(--brand-sidebar-accent, #f4f4f5);
+  --sidebar-border: var(--brand-sidebar-border, #e4e4e7);
+  --foreground: #09090b;
+  --card-foreground: #09090b;
+  --popover-foreground: #09090b;
+  --secondary-foreground: #09090b;
+  --accent-foreground: #09090b;
+  --sidebar-accent-foreground: #09090b;
 }
 
 /* Product: Calliope AI Phantasia */
@@ -504,12 +978,140 @@
 [data-mode="dark"][data-accent="phantasia-indigo"] {
   --brand-primary: #5f62f0;
   --brand-on-primary: #ffffff;
+  --ring: #a5b4fc;
+  --sidebar-ring: #a5b4fc;
+  --brand-link: #a5b4fc;
 }
 
 /* Accent: Phantasia indigo (Calliope AI Phantasia, light) */
 [data-mode="light"][data-accent="phantasia-indigo"] {
   --brand-primary: #4338ca;
   --brand-on-primary: #ffffff;
+}
+
+/* Look: Calliope AI Phantasia */
+[data-product="phantasia"],
+[data-product="phantasia"] [data-mode] {
+  --brand-font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --brand-font-head: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --brand-font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "Menlo", "Monaco", "Consolas", monospace;
+  --brand-font-size: 13px;
+  --brand-head-weight: 500;
+  --brand-control-height: 28px;
+  --brand-shadow-popover: 0px 4px 12px 0px #00000066;
+  --brand-shadow-dialog: 0px 20px 60px 0px #00000080;
+  --brand-status-glow: 0 0 #0000;
+  --brand-status-dot: none;
+  --brand-pill-font: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --brand-pill-case: uppercase;
+}
+
+/* Second accent: Calliope AI Phantasia (dark) */
+[data-product="phantasia"][data-mode="dark"],
+[data-product="phantasia"] [data-mode="dark"] {
+  --brand-accent-2: #0af0ce;
+  --brand-on-accent-2: #000000;
+}
+
+/* Second accent: Calliope AI Phantasia (light) */
+[data-product="phantasia"][data-mode="light"],
+[data-product="phantasia"] [data-mode="light"] {
+  --brand-accent-2: #08a181;
+  --brand-on-accent-2: #000000;
+}
+
+/* Status: Calliope AI Phantasia (dark) */
+[data-product="phantasia"][data-mode="dark"],
+[data-product="phantasia"] [data-mode="dark"] {
+  --success: #00e676;
+  --success-fg: #00e676;
+  --success-bg: rgba(0, 230, 118, 0.16);
+  --success-border: rgba(0, 230, 118, 0.3);
+  --warning: #ffb74d;
+  --warning-fg: #ffb74d;
+  --warning-bg: rgba(255, 183, 77, 0.16);
+  --warning-border: rgba(255, 183, 77, 0.3);
+  --info: #64b5f6;
+  --info-fg: #64b5f6;
+  --info-bg: rgba(100, 181, 246, 0.16);
+  --info-border: rgba(100, 181, 246, 0.3);
+  --danger: #e57373;
+  --danger-fg: #e78181;
+  --danger-bg: rgba(229, 115, 115, 0.16);
+  --danger-border: rgba(229, 115, 115, 0.3);
+  --destructive: #e57373;
+}
+
+/* Status: Calliope AI Phantasia (light) */
+[data-product="phantasia"][data-mode="light"],
+[data-product="phantasia"] [data-mode="light"] {
+  --success: #15803d;
+  --success-fg: #116e34;
+  --success-bg: rgba(21, 128, 61, 0.16);
+  --success-border: rgba(21, 128, 61, 0.3);
+  --warning: #b45309;
+  --warning-fg: #9b4707;
+  --warning-bg: rgba(180, 83, 9, 0.16);
+  --warning-border: rgba(180, 83, 9, 0.3);
+  --info: #1d4ed8;
+  --info-fg: #1d4ed8;
+  --info-bg: rgba(29, 78, 216, 0.16);
+  --info-border: rgba(29, 78, 216, 0.3);
+  --danger: #b91c1c;
+  --danger-fg: #b41b1b;
+  --danger-bg: rgba(185, 28, 28, 0.16);
+  --danger-border: rgba(185, 28, 28, 0.3);
+  --destructive: #b91c1c;
+}
+
+/* Ground: Editor (Calliope AI Phantasia, dark) */
+[data-mode="dark"][data-ground="phantasia-editor"] {
+  --background: #141416;
+  --card: #1c1c1f;
+  --popover: #262629;
+  --secondary: #262629;
+  --muted: #1c1c1f;
+  --accent: #303035;
+  --muted-foreground: #a0a0a0;
+  --border: #242427;
+  --input: #363639;
+  --sidebar: #141416;
+  --sidebar-foreground: #f0f2f1;
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-muted-foreground: #a0a0a0;
+  --sidebar-accent: #303035;
+  --sidebar-border: #242427;
+  --foreground: #eaeaea;
+  --card-foreground: #eaeaea;
+  --popover-foreground: #eaeaea;
+  --secondary-foreground: #eaeaea;
+  --accent-foreground: #eaeaea;
+  --sidebar-accent-foreground: #eaeaea;
+}
+
+/* Ground: Adjacent (Calliope AI Phantasia, light) */
+[data-mode="light"][data-ground="phantasia-adjacent"] {
+  --background: #fafafa;
+  --card: #f5f5f5;
+  --popover: #eeeeee;
+  --secondary: #eeeeee;
+  --muted: #f5f5f5;
+  --accent: #e5e5e5;
+  --muted-foreground: #555555;
+  --border: #ebebeb;
+  --input: #d4d4d4;
+  --sidebar: var(--brand-sidebar-light, #fafafa);
+  --sidebar-foreground: var(--brand-sidebar-foreground, #1e1d1b);
+  --sidebar-primary: var(--brand-sidebar-primary, var(--brand-primary));
+  --sidebar-muted-foreground: var(--brand-sidebar-muted-foreground, #555555);
+  --sidebar-accent: var(--brand-sidebar-accent, #e5e5e5);
+  --sidebar-border: var(--brand-sidebar-border, #ebebeb);
+  --foreground: #1a1a1a;
+  --card-foreground: #1a1a1a;
+  --popover-foreground: #1a1a1a;
+  --secondary-foreground: #1a1a1a;
+  --accent-foreground: #1a1a1a;
+  --sidebar-accent-foreground: #1a1a1a;
 }
 
 /* Product: Client Cove */
@@ -529,6 +1131,118 @@
   --brand-on-primary: #ffffff;
 }
 
+/* Look: Client Cove */
+[data-product="client-cove"],
+[data-product="client-cove"] [data-mode] {
+  --brand-font-mono: "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace;
+  --brand-head-tracking: -0.025em;
+  --brand-control-radius-offset: -2px;
+  --brand-control-height: 36px;
+  --brand-input-height: 40px;
+  --brand-shadow-popover: 0px 1px 2px 0px #0000000d;
+  --brand-status-glow: 0 0 #0000;
+  --brand-status-dot: none;
+  --brand-pill-font: var(--font-plex-sans, "IBM Plex Sans"), system-ui, sans-serif;
+  --brand-focus-width: 2px;
+  --brand-focus-alpha: 100%;
+  --brand-focus-offset: 2px;
+  --brand-focus-gap: 0 0 0 2px var(--background);
+}
+
+/* Status: Client Cove (dark) */
+[data-product="client-cove"][data-mode="dark"],
+[data-product="client-cove"] [data-mode="dark"] {
+  --success: #9ae6b4;
+  --success-fg: #9ae6b4;
+  --success-bg: rgba(154, 230, 180, 0.16);
+  --success-border: rgba(154, 230, 180, 0.3);
+  --warning: #fbd38d;
+  --warning-fg: #fbd38d;
+  --warning-bg: rgba(251, 211, 141, 0.16);
+  --warning-border: rgba(251, 211, 141, 0.3);
+  --info: #90cdf4;
+  --info-fg: #90cdf4;
+  --info-bg: rgba(144, 205, 244, 0.16);
+  --info-border: rgba(144, 205, 244, 0.3);
+  --danger: #feb2b2;
+  --danger-fg: #feb2b2;
+  --danger-bg: rgba(254, 178, 178, 0.16);
+  --danger-border: rgba(254, 178, 178, 0.3);
+  --destructive: #feb2b2;
+}
+
+/* Status: Client Cove (light) */
+[data-product="client-cove"][data-mode="light"],
+[data-product="client-cove"] [data-mode="light"] {
+  --success: #2f855a;
+  --success-fg: #22543d;
+  --success-bg: #c6f6d5;
+  --success-border: #9ae6b4;
+  --warning: #dd6b20;
+  --warning-fg: #7b341e;
+  --warning-bg: #feebc8;
+  --warning-border: #fbd38d;
+  --info: #3182ce;
+  --info-fg: #2a4365;
+  --info-bg: #bee3f8;
+  --info-border: #90cdf4;
+  --danger: #e53e3e;
+  --danger-fg: #822727;
+  --danger-bg: #fed7d7;
+  --danger-border: #feb2b2;
+  --destructive: #e53e3e;
+}
+
+/* Ground: Slate (Client Cove, dark) */
+[data-mode="dark"][data-ground="client-cove-slate"] {
+  --background: #10131c;
+  --card: #171b26;
+  --popover: #171b26;
+  --secondary: #222734;
+  --muted: #222734;
+  --accent: #222734;
+  --muted-foreground: #929bab;
+  --border: #343b4b;
+  --input: rgba(255, 255, 255, 0.2);
+  --sidebar: #171b26;
+  --sidebar-foreground: #f0f2f1;
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-muted-foreground: #929bab;
+  --sidebar-accent: rgba(255, 255, 255, 0.1);
+  --sidebar-border: #343b4b;
+  --foreground: #f0f1f5;
+  --card-foreground: #f0f1f5;
+  --popover-foreground: #f0f1f5;
+  --secondary-foreground: #f0f1f5;
+  --accent-foreground: #f0f1f5;
+  --sidebar-accent-foreground: #f0f1f5;
+}
+
+/* Ground: Cloud (Client Cove, light) */
+[data-mode="light"][data-ground="client-cove-cloud"] {
+  --background: #f7f8fa;
+  --card: #ffffff;
+  --popover: #ffffff;
+  --secondary: #f0f1f5;
+  --muted: #f0f1f5;
+  --accent: #f0f1f5;
+  --muted-foreground: #4e586b;
+  --border: #e1e4eb;
+  --input: #e1e4eb;
+  --sidebar: var(--brand-sidebar-light, #ffffff);
+  --sidebar-foreground: var(--brand-sidebar-foreground, #1e1d1b);
+  --sidebar-primary: var(--brand-sidebar-primary, var(--brand-primary));
+  --sidebar-muted-foreground: var(--brand-sidebar-muted-foreground, #4e586b);
+  --sidebar-accent: var(--brand-sidebar-accent, #f2f0fc);
+  --sidebar-border: var(--brand-sidebar-border, #e1e4eb);
+  --foreground: #171b26;
+  --card-foreground: #171b26;
+  --popover-foreground: #171b26;
+  --secondary-foreground: #171b26;
+  --accent-foreground: #171b26;
+  --sidebar-accent-foreground: #171b26;
+}
+
 /* Product: Calliope AI AGTerm */
 [data-product="agterm"] {
   --brand-sidebar: #0d1117;
@@ -544,4 +1258,401 @@
 [data-mode="light"][data-accent="agterm-blue"] {
   --brand-primary: #0969da;
   --brand-on-primary: #ffffff;
+}
+
+/* Look: Calliope AI AGTerm */
+[data-product="agterm"],
+[data-product="agterm"] [data-mode] {
+  --brand-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --brand-font-head: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --brand-font-mono: "JetBrains Mono", "Fira Code", "Monaco", "Consolas", monospace;
+  --brand-card-radius-offset: 4px;
+  --brand-shadow-popover: 0px 20px 25px -5px #0000001a, 0px 8px 10px -6px #0000001a;
+  --brand-status-glow: 0 0 #0000;
+  --brand-pill-font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --brand-focus-width: 2px;
+  --brand-focus-alpha: 100%;
+  --brand-focus-offset: 2px;
+  --brand-focus-gap: 0 0 0 2px var(--background);
+}
+
+/* Second accent: Calliope AI AGTerm (dark) */
+[data-product="agterm"][data-mode="dark"],
+[data-product="agterm"] [data-mode="dark"] {
+  --brand-accent-2: #3fb950;
+  --brand-on-accent-2: #000000;
+}
+
+/* Second accent: Calliope AI AGTerm (light) */
+[data-product="agterm"][data-mode="light"],
+[data-product="agterm"] [data-mode="light"] {
+  --brand-accent-2: #1a7f37;
+  --brand-on-accent-2: #ffffff;
+}
+
+/* Status: Calliope AI AGTerm (dark) */
+[data-product="agterm"][data-mode="dark"],
+[data-product="agterm"] [data-mode="dark"] {
+  --success: #22c55e;
+  --success-fg: #4ade80;
+  --success-bg: rgba(34, 197, 94, 0.2);
+  --success-border: rgba(34, 197, 94, 0.4);
+  --warning: #eab308;
+  --warning-fg: #facc15;
+  --warning-bg: rgba(234, 179, 8, 0.2);
+  --warning-border: rgba(234, 179, 8, 0.4);
+  --danger: #ef4444;
+  --danger-fg: #f87171;
+  --danger-bg: rgba(239, 68, 68, 0.2);
+  --danger-border: rgba(239, 68, 68, 0.4);
+  --destructive: #ef4444;
+}
+
+/* Status: Calliope AI AGTerm (light) */
+[data-product="agterm"][data-mode="light"],
+[data-product="agterm"] [data-mode="light"] {
+  --success: #16a34a;
+  --success-fg: #137638;
+  --success-bg: rgba(22, 163, 74, 0.2);
+  --success-border: rgba(22, 163, 74, 0.4);
+  --warning: #bf8304;
+  --warning-fg: #915706;
+  --warning-bg: rgba(191, 131, 4, 0.2);
+  --warning-border: rgba(191, 131, 4, 0.4);
+  --danger: #dc2626;
+  --danger-fg: #b91c1c;
+  --danger-bg: rgba(220, 38, 38, 0.2);
+  --danger-border: rgba(220, 38, 38, 0.4);
+  --destructive: #dc2626;
+}
+
+/* Ground: AGTerm Dark (Calliope AI AGTerm, dark) */
+[data-mode="dark"][data-ground="agterm-dark"] {
+  --background: #0d1117;
+  --card: #161b22;
+  --popover: #161b22;
+  --secondary: #30363d;
+  --muted: #161b22;
+  --accent: #30363d;
+  --muted-foreground: #8f959b;
+  --border: #30363d;
+  --input: #30363d;
+  --sidebar: #0d1117;
+  --sidebar-foreground: #f0f2f1;
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-muted-foreground: #8f959b;
+  --sidebar-accent: #162333;
+  --sidebar-border: #30363d;
+  --foreground: #e6edf3;
+  --card-foreground: #e6edf3;
+  --popover-foreground: #e6edf3;
+  --secondary-foreground: #e6edf3;
+  --accent-foreground: #e6edf3;
+  --sidebar-accent-foreground: #e6edf3;
+}
+
+/* Ground: AGTerm Light (Calliope AI AGTerm, light) */
+[data-mode="light"][data-ground="agterm-light"] {
+  --background: #ffffff;
+  --card: #f6f8fa;
+  --popover: #f6f8fa;
+  --secondary: #d0d7de;
+  --muted: #f6f8fa;
+  --accent: #d0d7de;
+  --muted-foreground: #6b6c6f;
+  --border: #d0d7de;
+  --input: #d0d7de;
+  --sidebar: var(--brand-sidebar-light, #ffffff);
+  --sidebar-foreground: var(--brand-sidebar-foreground, #1e1d1b);
+  --sidebar-primary: var(--brand-sidebar-primary, var(--brand-primary));
+  --sidebar-muted-foreground: var(--brand-sidebar-muted-foreground, #6b6c6f);
+  --sidebar-accent: var(--brand-sidebar-accent, #e1edfb);
+  --sidebar-border: var(--brand-sidebar-border, #d0d7de);
+  --foreground: #24292f;
+  --card-foreground: #24292f;
+  --popover-foreground: #24292f;
+  --secondary-foreground: #24292f;
+  --accent-foreground: #24292f;
+  --sidebar-accent-foreground: #24292f;
+}
+
+/* Product: Calliope AI IDE */
+[data-product="calliope-vscode"] {
+  --brand-sidebar: #0a0a0a;
+}
+
+/* Accent: Pergamon purple (Calliope AI IDE, dark) */
+[data-mode="dark"][data-accent="ide-purple"] {
+  --brand-primary: #5a4dc7;
+  --brand-on-primary: #eaeaf9;
+  --ring: #a9a8e5;
+  --sidebar-ring: #a9a8e5;
+  --brand-link: #a9a8e5;
+}
+
+/* Accent: Pergamon purple (Calliope AI IDE, light) */
+[data-mode="light"][data-accent="ide-purple"] {
+  --brand-primary: #00a081;
+  --brand-on-primary: #162345;
+  --ring: #007c7e;
+  --sidebar-ring: #007c7e;
+  --brand-link: #007c7e;
+}
+
+/* Look: Calliope AI IDE */
+[data-product="calliope-vscode"],
+[data-product="calliope-vscode"] [data-mode] {
+  --brand-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Open Sans", "Helvetica Neue", sans-serif;
+  --brand-font-head: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Open Sans", "Helvetica Neue", sans-serif;
+  --brand-font-mono: "Menlo", "Monaco", "Courier New", monospace;
+  --brand-font-size: 13px;
+  --brand-card-radius-offset: 4px;
+  --brand-bubble-radius: 8px;
+  --brand-control-height: 24px;
+  --brand-shadow-popover: 0px 20px 25px -5px #0000001a, 0px 8px 10px -6px #0000001a;
+  --brand-status-glow: 0 0 #0000;
+  --brand-pill-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Open Sans", "Helvetica Neue", sans-serif;
+  --brand-user-bubble: var(--primary);
+  --brand-user-bubble-fg: var(--primary-foreground);
+}
+
+/* Status: Calliope AI IDE (dark) */
+[data-product="calliope-vscode"][data-mode="dark"],
+[data-product="calliope-vscode"] [data-mode="dark"] {
+  --success: #00e5b8;
+  --success-fg: #00e5b8;
+  --success-bg: rgba(0, 229, 184, 0.1);
+  --success-border: rgba(0, 229, 184, 0.35);
+  --warning: #00b1b4;
+  --warning-fg: #00b1b4;
+  --warning-bg: rgba(0, 177, 180, 0.1);
+  --warning-border: rgba(0, 177, 180, 0.35);
+  --info: #00e0e4;
+  --info-fg: #00e0e4;
+  --info-bg: rgba(0, 224, 228, 0.1);
+  --info-border: rgba(0, 224, 228, 0.35);
+  --danger: #5749b3;
+  --danger-fg: #8786da;
+  --danger-bg: rgba(87, 73, 179, 0.1);
+  --danger-border: rgba(87, 73, 179, 0.35);
+  --destructive: #5749b3;
+}
+
+/* Ground: Pergamon Dark (Calliope AI IDE, dark) */
+[data-mode="dark"][data-ground="calliope-vscode-pergamon-dark"] {
+  --background: #000000;
+  --card: #0a0a0a;
+  --popover: #0a0a0a;
+  --secondary: #1a1a2e;
+  --muted: #0a0a0a;
+  --accent: #1a1a2e;
+  --muted-foreground: #6f80a0;
+  --border: #141414;
+  --input: #1f335d;
+  --sidebar: #0a0a0a;
+  --sidebar-foreground: #f0f2f1;
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-muted-foreground: #6f80a0;
+  --sidebar-accent: rgba(90, 77, 199, 0.333);
+  --sidebar-border: #141414;
+  --foreground: #e6e9ee;
+  --card-foreground: #e6e9ee;
+  --popover-foreground: #e6e9ee;
+  --secondary-foreground: #e6e9ee;
+  --accent-foreground: #e6e9ee;
+  --sidebar-accent-foreground: #e6e9ee;
+}
+
+/* Ground: Pergamon Light (Calliope AI IDE, light) */
+[data-mode="light"][data-ground="calliope-vscode-pergamon-light"] {
+  --background: #d9fcfa;
+  --card: #d6fcf4;
+  --popover: #d9fcfa;
+  --secondary: #9ef7f3;
+  --muted: #d6fcf4;
+  --accent: #d6fcf4;
+  --muted-foreground: #5d6a85;
+  --border: #9ef7f3;
+  --input: #9ef7f3;
+  --sidebar: var(--brand-sidebar-light, #d6fcf4);
+  --sidebar-foreground: var(--brand-sidebar-foreground, #1e1d1b);
+  --sidebar-primary: var(--brand-sidebar-primary, var(--brand-primary));
+  --sidebar-muted-foreground: var(--brand-sidebar-muted-foreground, #5d6a85);
+  --sidebar-accent: var(--brand-sidebar-accent, rgba(0, 229, 184, 0.2));
+  --sidebar-border: var(--brand-sidebar-border, #9ef7f3);
+  --foreground: #1f335d;
+  --card-foreground: #1f335d;
+  --popover-foreground: #1f335d;
+  --secondary-foreground: #1f335d;
+  --accent-foreground: #1f335d;
+  --sidebar-accent-foreground: #1f335d;
+}
+
+/* Product: Calliope AI Pergamon */
+[data-product="pergamon"] {
+  --brand-sidebar: #0a0a0a;
+}
+
+/* Accent: Pergamon purple (Calliope AI Pergamon, dark) */
+[data-mode="dark"][data-accent="pergamon-purple"] {
+  --brand-primary: #5a4dc7;
+  --brand-on-primary: #ffffff;
+  --ring: #a9a8e5;
+  --sidebar-ring: #a9a8e5;
+  --brand-link: #a9a8e5;
+}
+
+/* Accent: Pergamon purple (Calliope AI Pergamon, light) */
+[data-mode="light"][data-accent="pergamon-purple"] {
+  --brand-primary: #5a4dc7;
+  --brand-on-primary: #ffffff;
+}
+
+/* Look: Calliope AI Pergamon */
+[data-product="pergamon"],
+[data-product="pergamon"] [data-mode] {
+  --brand-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica", "Arial", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --brand-font-head: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica", "Arial", sans-serif;
+  --brand-font-mono: "Menlo", "Consolas", "DejaVu Sans Mono", monospace;
+  --brand-font-size: 15px;
+  --brand-head-weight: 500;
+  --brand-control-radius-offset: 4px;
+  --brand-card-radius-offset: 6px;
+  --brand-control-height: 36px;
+  --brand-shadow-popover: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+  --brand-tab-bar: none;
+  --brand-tab-fill: var(--accent);
+  --brand-tab-rule: 0px;
+  --brand-tab-radius: var(--radius);
+}
+
+/* Status: Calliope AI Pergamon (dark) */
+[data-product="pergamon"][data-mode="dark"],
+[data-product="pergamon"] [data-mode="dark"] {
+  --success: #4caf50;
+  --success-fg: #81c784;
+  --success-bg: rgba(76, 175, 80, 0.1);
+  --success-border: rgba(76, 175, 80, 0.35);
+  --warning: #ff9800;
+  --warning-fg: #ffb74d;
+  --warning-bg: rgba(255, 152, 0, 0.1);
+  --warning-border: rgba(255, 152, 0, 0.35);
+  --info: #00bcd4;
+  --info-fg: #4dd0e1;
+  --info-bg: rgba(0, 188, 212, 0.1);
+  --info-border: rgba(0, 188, 212, 0.35);
+  --danger: #f44336;
+  --danger-fg: #e57373;
+  --danger-bg: rgba(244, 67, 54, 0.1);
+  --danger-border: rgba(244, 67, 54, 0.35);
+  --destructive: #f44336;
+}
+
+/* Ground: Pergamon Dark (Calliope AI Pergamon, dark) */
+[data-mode="dark"][data-ground="pergamon-dark"] {
+  --background: #000000;
+  --card: #0a0a0a;
+  --popover: #1a1a2e;
+  --secondary: #0a0a0a;
+  --muted: #0a0a0a;
+  --accent: #1a1a2e;
+  --muted-foreground: #7384a3;
+  --border: #1f335d;
+  --input: #1f335d;
+  --sidebar: #0a0a0a;
+  --sidebar-foreground: #f0f2f1;
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-muted-foreground: #7384a3;
+  --sidebar-accent: rgba(90, 77, 199, 0.333);
+  --sidebar-border: #1f335d;
+  --foreground: #e6e9ee;
+  --card-foreground: #e6e9ee;
+  --popover-foreground: #e6e9ee;
+  --secondary-foreground: #e6e9ee;
+  --accent-foreground: #e6e9ee;
+  --sidebar-accent-foreground: #e6e9ee;
+}
+
+/* Product: Calliope AI */
+[data-product="calliope"] {
+  --brand-sidebar: #0e1730;
+}
+
+/* Accent: Calliope (Calliope AI, dark) */
+[data-mode="dark"][data-accent="calliope"] {
+  --brand-primary: #3ff1ef;
+  --brand-on-primary: #162345;
+}
+
+/* Accent: Calliope (Calliope AI, light) */
+[data-mode="light"][data-accent="calliope"] {
+  --brand-primary: #5a4dc7;
+  --brand-on-primary: #ffffff;
+}
+
+/* Look: Calliope AI */
+[data-product="calliope"],
+[data-product="calliope"] [data-mode] {
+  --brand-font-size: 16px;
+  --brand-head-weight: 700;
+  --brand-head-tracking: -0.025em;
+  --brand-control-height: 40px;
+  --brand-shadow-card: 0px 1px 2px 0px #0000004d, 0px 18px 44px -22px #000000b3;
+  --brand-shadow-popover: 0px 16px 40px -22px #000000cc;
+  --brand-status-glow: 0px 0px 10px 0px currentColor;
+  --brand-pill-font: var(--font-plex-sans, "IBM Plex Sans"), system-ui, sans-serif;
+  --brand-focus-width: 2px;
+  --brand-focus-alpha: 100%;
+  --brand-focus-offset: 2px;
+  --brand-focus-gap: 0 0 0 2px var(--background);
+}
+
+/* Ground: Calliope navy (Calliope AI, dark) */
+[data-mode="dark"][data-ground="calliope-navy"] {
+  --background: #162345;
+  --card: #1b2a52;
+  --popover: #1b2a52;
+  --secondary: #223155;
+  --muted: #223155;
+  --accent: rgba(255, 255, 255, 0.05);
+  --muted-foreground: #989eac;
+  --border: rgba(255, 255, 255, 0.11);
+  --input: rgba(255, 255, 255, 0.11);
+  --sidebar: #0e1730;
+  --sidebar-foreground: #f0f2f1;
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-muted-foreground: #989eac;
+  --sidebar-accent: color-mix(in oklab, var(--primary) 16%, transparent);
+  --sidebar-border: rgba(255, 255, 255, 0.11);
+  --foreground: #f1f2f4;
+  --card-foreground: #f1f2f4;
+  --popover-foreground: #f1f2f4;
+  --secondary-foreground: #f1f2f4;
+  --accent-foreground: #f1f2f4;
+  --sidebar-accent-foreground: #f1f2f4;
+}
+
+/* Ground: Calliope day (Calliope AI, light) */
+[data-mode="light"][data-ground="calliope-day"] {
+  --background: #eff4fc;
+  --card: #ffffff;
+  --popover: #ffffff;
+  --secondary: #e3ebf8;
+  --muted: #e3ebf8;
+  --accent: rgba(19, 26, 46, 0.04);
+  --muted-foreground: #45506b;
+  --border: rgba(19, 26, 46, 0.12);
+  --input: rgba(19, 26, 46, 0.22);
+  --sidebar: var(--brand-sidebar-light, #e3ebf8);
+  --sidebar-foreground: var(--brand-sidebar-foreground, #1e1d1b);
+  --sidebar-primary: var(--brand-sidebar-primary, var(--brand-primary));
+  --sidebar-muted-foreground: var(--brand-sidebar-muted-foreground, #45506b);
+  --sidebar-accent: var(--brand-sidebar-accent, #d6e1f3);
+  --sidebar-border: var(--brand-sidebar-border, rgba(19, 26, 46, 0.12));
+  --foreground: #131a2e;
+  --card-foreground: #131a2e;
+  --popover-foreground: #131a2e;
+  --secondary-foreground: #131a2e;
+  --accent-foreground: #131a2e;
+  --sidebar-accent-foreground: #131a2e;
 }

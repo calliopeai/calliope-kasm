@@ -1,6 +1,6 @@
 import '../styles/globals.css'
-// The @calliopelabs/ui tokens, vendored from 0.21.0 (dist/css; the package itself needs
-// React 19): the site takes the Workbench brand accent from them.
+// The @calliopelabs/ui tokens, vendored from 0.23.0 (dist/css; the package itself needs
+// React 19): the site takes the Workbench brand accent and face from them.
 import '../calliope/tokens.css'
 import Layout from '../components/layout'
 import { useState, useEffect } from 'react'
