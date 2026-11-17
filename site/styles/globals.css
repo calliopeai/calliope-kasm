@@ -4,9 +4,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Brand-owned, pending the brand schema expansion: the registry's own colours
+   (RGB channels, so Tailwind's opacity modifiers work). None of them matches a
+   Workbench ground. The Workbench brand accent and type come from the
+   @calliopelabs/ui tokens (calliope/tokens.css): its face, --brand-font-sans, is
+   the stack the site had up to Roboto, which this file loads from Google Fonts. */
+:root {
+    --kasm-page: 203 213 225;
+    --kasm-text: 51 65 85;
+    --kasm-surface: 241 245 249;
+    --kasm-line: 148 163 184;
+    --kasm-chip: 221 230 241;
+    --kasm-band: 22 45 72;
+    --kasm-hover: 15 23 42;
+}
+
 body {
-    @apply bg-gradient-to-tr from-slate-300 to-slate-300 min-h-screen text-slate-700;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    @apply bg-gradient-to-tr from-kasm-page to-kasm-page min-h-screen text-kasm-text;
+    font-family: var(--brand-font-sans);
     font-weight: 400;
 }
 
