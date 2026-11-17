@@ -4,9 +4,23 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Brand-owned, pending the brand schema expansion: the registry's own colours
+   (RGB channels, so Tailwind's opacity modifiers work) and type. The Workbench
+   brand accent comes from the @calliopelabs/ui tokens (calliope/tokens.css). */
+:root {
+    --kasm-page: 203 213 225;
+    --kasm-text: 51 65 85;
+    --kasm-surface: 241 245 249;
+    --kasm-line: 148 163 184;
+    --kasm-chip: 221 230 241;
+    --kasm-band: 22 45 72;
+    --kasm-hover: 15 23 42;
+    --kasm-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 body {
-    @apply bg-gradient-to-tr from-slate-300 to-slate-300 min-h-screen text-slate-700;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    @apply bg-gradient-to-tr from-kasm-page to-kasm-page min-h-screen text-kasm-text;
+    font-family: var(--kasm-font-sans);
     font-weight: 400;
 }
 
